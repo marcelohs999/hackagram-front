@@ -23,7 +23,7 @@ Post.propTypes = {
   post: PropTypes.shape({
     post_image: PropTypes.string.isRequired,
     post_text: PropTypes.string,
-    username: PropTypes.string.isRrequired,
+    username: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
     likes: PropTypes.number,
     comments: PropTypes.array,

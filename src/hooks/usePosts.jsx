@@ -26,7 +26,13 @@ const usePosts = () => {
         loadPosts()
     }, [])
 
-    return{posts, loading, error}
+    const addPost = (post) => {
+        setPosts([
+            post, ...posts
+        ])
+    }
+
+    return{posts, loading, error, addPost}
 
 }
 

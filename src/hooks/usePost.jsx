@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react"
+import {getSinglePostService} from "../services"
 
-const usePost = (id) => {
-    const [post, setPost] = useState(null)
+const usePost = (username) => {
+    const [posts, setPosts] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
 
@@ -10,16 +11,17 @@ const usePost = (id) => {
             try{
                 setLoading(true)
 
-                const data = await
+                const data = await getSinglePostService(username)
+                setPosts(data)
             }catch(error) {
+                setError(error.message)
 
             } finally {
-
+                 setLoading(false)
             }
         }
-    }, [post_text])
-    return { post, loading, error}
-
-
-
+        loadPost()
+    }, [username])
+    return { posts, loading, error}
 }
+export default usePost

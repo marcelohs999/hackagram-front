@@ -4,10 +4,10 @@ import {Routes, Route} from "react-router-dom"
 import './App.css'
 import { Footer } from './component/Footer'
 import { HomePage } from './pages/HomePage'
-import { RegisterPage } from './pages/RegisterPage'
 import { LoginPage } from './pages/LoginPage'
 import { PostPage } from './pages/PostsPage'
 import { NotFound } from './pages/NotFound'
+import { RegisterPage } from './pages/RegisterPage'
 
 function App() {
 
