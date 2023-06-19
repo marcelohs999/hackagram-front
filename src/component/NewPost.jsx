@@ -10,19 +10,16 @@ export const NewPost = ({ addPost }) => {
 
   const handleForm = async (e) => {
     e.preventDefault();
-  
+
     try {
       setSending(true);
-  
-      const data = new FormData();
-    
-data.append("postImage", e.target.postImage.files[0]); 
-data.append("postText", e.target.postText.value);
 
-  
-     
-  
-      const post = await sendPostService( {data, token} );
+      const data = new FormData();
+
+      data.append("postImage", e.target.postImage.files[0]);
+      data.append("postText", e.target.postText.value);
+
+      const post = await sendPostService({ data, token });
       addPost(post);
     } catch (error) {
       setError(error.message);
@@ -30,7 +27,6 @@ data.append("postText", e.target.postText.value);
       setSending(false);
     }
   };
-  
 
   return (
     <form onSubmit={handleForm}>
@@ -38,7 +34,13 @@ data.append("postText", e.target.postText.value);
 
       <fieldset>
         <label htmlFor="postImage">Sube tu post</label>
-        <input type="file" id="postImage" name="postImage" accept="image/*" required />
+        <input
+          type="file"
+          id="postImage"
+          name="postImage"
+          accept="image/*"
+          required
+        />
       </fieldset>
       <fieldset>
         <label htmlFor="postText">Escribe en el pie de la foto</label>
