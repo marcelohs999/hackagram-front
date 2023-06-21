@@ -2,11 +2,17 @@ import PropTypes from "prop-types";
 
 export const Post2 = ({ post }) => {
   const backendURL = import.meta.env.VITE_BACKEND;
-  console.log(post_image);
+
+  // Asegurémonos de que post.comments sea una matriz antes de realizar el map
+  const comments = post.comments || [];
+  console.log(post);
   return (
     <article>
       {post.post_image && (
-        <img src={`${backendURL}/p/${post.post_image}`} alt="Imagen del post" />
+        <img
+          src={`${backendURL}/uploads/${post.post_image}`}
+          alt="Imagen del post"
+        />
       )}
       {post.post_text && <p>{post.post_text}</p>}
       <p>
@@ -14,7 +20,7 @@ export const Post2 = ({ post }) => {
       </p>
       <p>Likes {post.likes}</p>
       <ul>
-        {post.comments.map((comment) => (
+        {comments.map((comment) => (
           <li key={comment.id}>{comment.comment}</li>
         ))}
       </ul>

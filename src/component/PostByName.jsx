@@ -2,9 +2,12 @@ import PropTypes from "prop-types";
 import { Post2 } from "./Post2";
 
 export const PostByName = ({ post }) => {
-  return post.length ? (
+  // Asegurémonos de que post sea una matriz antes de realizar el map
+  const posts = post || [];
+
+  return posts.length ? (
     <ul>
-      {post.map((post) => {
+      {posts.map((post) => {
         if (post && post.id) {
           // Verifica si el objeto post existe y tiene la propiedad id
           return (

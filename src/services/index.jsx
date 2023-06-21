@@ -71,7 +71,7 @@ export const getMyUserDataService = async ({ token }) => {
   return json.data;
 };
 
-export const getPostByNameFromUserService = async ({ post_image }) => {
+export const getPostByNameFromUserService = async (post_image) => {
   const backendURL = import.meta.env.VITE_BACKEND;
   console.log(post_image);
   const response = await fetch(`${backendURL}/p/${post_image}`);
