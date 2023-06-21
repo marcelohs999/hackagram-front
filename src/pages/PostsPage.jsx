@@ -14,7 +14,7 @@ export const PostPage = () => {
 
   return (
     <section>
-      <h1>Posts from {username}</h1>
+      <h1>Publicaciones de {username}</h1>
       <NewPost addPost={addPost} />
       {posts.map((post) => (
         <Post key={post.id} post={post} />
