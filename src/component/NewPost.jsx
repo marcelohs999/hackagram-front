@@ -21,6 +21,7 @@ export const NewPost = ({ addPost }) => {
 
       const post = await sendPostService({ data, token });
       addPost(post);
+      e.target.reset();
     } catch (error) {
       setError(error.message);
     } finally {

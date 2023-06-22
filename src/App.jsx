@@ -1,4 +1,5 @@
-import { useState } from "react";
+// import { useState } from "react";
+import React from "react";
 import { Header } from "./component/Header";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -9,8 +10,11 @@ import { PostPage } from "./pages/PostsPage";
 import { NotFound } from "./pages/NotFound";
 import { RegisterPage } from "./pages/RegisterPage";
 import { SinglePage } from "./pages/SinglePage";
+// import usePosts from "./hooks/usePosts";
 
 function App() {
+  // const { addPost } = usePosts();
+
   return (
     <>
       <main>

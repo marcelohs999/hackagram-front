@@ -1,6 +1,6 @@
 export const getAllPostServices = async () => {
   const backendURL = import.meta.env.VITE_BACKEND;
-  const response = await fetch(backendURL);
+  const response = await fetch(`${backendURL}/`);
 
   const json = await response.json();
   if (!response.ok) {

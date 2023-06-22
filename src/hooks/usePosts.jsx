@@ -1,39 +1,34 @@
-import { useEffect, useState } from "react"
-import { getAllPostServices } from "../services"
+import { useEffect, useState } from "react";
+import { getAllPostServices } from "../services";
 
 const usePosts = () => {
-    const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState('')
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        setLoading(true);
+        setError("");
+        const data = await getAllPostServices();
 
-    useEffect(() => {
-        const loadPosts = async () => {
-            try{
-                setLoading(true)
+        setPosts(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-                const data = await getAllPostServices()
+    loadPosts();
+  }, []);
 
-                setPosts(data)
+  const addPost = (post) => {
+    setPosts([post, ...posts]);
+  };
 
-            }catch(error){
-              setError(error.message)
-            }finally {
-                setLoading(false)
-            }
-        }
+  return { posts, loading, error, addPost };
+};
 
-        loadPosts()
-    }, [])
-
-    const addPost = (post) => {
-        setPosts([
-            post, ...posts
-        ])
-    }
-
-    return{posts, loading, error, addPost}
-
-}
-
-export default usePosts
+export default usePosts;
