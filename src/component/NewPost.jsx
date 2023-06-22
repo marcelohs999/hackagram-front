@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 export const NewPost = ({ addPost }) => {
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
+  const [image, setImage] = useState(null);
   const { token } = useContext(AuthContext);
 
   const handleForm = async (e) => {
@@ -14,12 +15,16 @@ export const NewPost = ({ addPost }) => {
     try {
       setSending(true);
 
-      const data = new FormData();
-
-      data.append("postImage", e.target.postImage.files[0]);
-      data.append("postText", e.target.postText.value);
-
+      const data = new FormData(e.target);
       const post = await sendPostService({ data, token });
+
+      // data.append("postImage", e.target.postImage.files[0]);
+      // data.append("postText", e.target.postText.value);
+
+      addPost(NewPost);
+      e.target.reset();
+      setImage(null);
+
       addPost(post);
     } catch (error) {
       setError(error.message);
@@ -29,28 +34,41 @@ export const NewPost = ({ addPost }) => {
   };
 
   return (
-    <form onSubmit={handleForm}>
-      <h1>Añade un nuevo Post</h1>
+    <>
+      {/* <h1>Añade un nuevo Post</h1> */}
 
-      <fieldset>
-        <label htmlFor="postImage">Sube tu post</label>
-        <input
-          type="file"
-          id="postImage"
-          name="postImage"
-          accept="image/*"
-          required
-        />
-      </fieldset>
-      <fieldset>
-        <label htmlFor="postText">Escribe en el pie de la foto</label>
-        <input type="text" id="postText" name="postText" />
-      </fieldset>
-      <button type="submit" disabled={sending}>
-        {sending ? "Enviando..." : "Subir Post"}
-      </button>
-      {error ? <p>{error}</p> : null}
-    </form>
+      <form onSubmit={handleForm}>
+        <fieldset>
+          <label htmlFor="postImage">Sube tu post</label>
+          <input
+            type="file"
+            id="postImage"
+            name="postImage"
+            accept="image/*"
+            required
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+
+          {image ? (
+            <figure>
+              <img
+                src={URL.createObjectURL(image)}
+                alt="Preview"
+                style={{ width: "100px" }}
+              />
+            </figure>
+          ) : null}
+        </fieldset>
+        <fieldset>
+          <label htmlFor="postText">Escribe en el pie de la foto</label>
+          <input type="text" id="postText" name="postText" />
+        </fieldset>
+        <button type="submit" disabled={sending}>
+          {sending ? "Enviando..." : "Subir Post"}
+        </button>
+        {error ? <p>{error}</p> : null}
+      </form>
+    </>
   );
 };
 

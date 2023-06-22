@@ -4,7 +4,7 @@ import { ErrorMessage } from "../component/ErrorMessage";
 import { Post } from "../component/Post";
 import { NewPost } from "../component/NewPost";
 
-export const PostPage = () => {
+export const PostsPage = () => {
   const { username } = useParams();
 
   const { posts, loading, error, addPost } = usePost(username);
