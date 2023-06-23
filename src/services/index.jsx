@@ -97,3 +97,13 @@ export const sendPostService = async ({ data, token }) => {
   }
   return json.data;
 };
+
+export const searchImageService = async ({ post_text }) => {
+  const backendURL = import.meta.env.VITE_BACKEND;
+  const response = await fetch(`${backendURL}/image/${post_text}`);
+  const json = await response.json();
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+  return json.data;
+};

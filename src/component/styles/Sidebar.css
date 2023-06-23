@@ -1,0 +1,41 @@
+.sidebar {
+  width: 200px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  position: fixed; /* Añade esta línea para que la barra lateral sea fija */
+  left: 0; /* Ajusta la posición izquierda según tus necesidades */
+  top: 0; /* Ajusta la posición superior según tus necesidades */
+  height: 100vh; /* Establece la altura de la barra lateral como el 100% de la altura de la ventana */
+  overflow-y: auto; /* Agrega una barra de desplazamiento si el contenido excede la altura */
+}
+
+.hackagram-logo {
+  padding-bottom: 3rem;
+}
+
+.sidebar-nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sidebar-item i {
+  margin-right: 10px;
+}
+
+.sidebar-item:hover {
+  background-color: #e0e0e0;
+}
+
+.sidebar-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
