@@ -1,5 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { searchImageService } from "../services";
 import "./styles/Sidebar.css";
 
 import instaLogo from "../../logos/instagram.svg";
@@ -10,6 +11,22 @@ import heartIcon from "../../logos/heart.svg";
 import profileIcon from "../../logos/settings.svg";
 
 const Sidebar = () => {
+  const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    navigate(`/search/${searchText}`);
+  };
+
+  //   const handleSearch = async () => {
+  //     try {
+  //       const searchData = await searchImageService({ post_text: "buscar" });
+  //       console.log(searchData);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
   return (
     <div className="sidebar">
       <p>Hackagram</p>
@@ -22,7 +39,7 @@ const Sidebar = () => {
             <img src={homeIcon} alt="Home" className="sidebar-icon" /> Inicio
           </li>
         </Link>
-        <li className="sidebar-item">
+        <li className="sidebar-item" onClick={handleSearch}>
           <img src={searchIcon} alt="search" className="sidebar-icon" />{" "}
           Búsqueda
         </li>
