@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 export const NewPost = ({ addPost }) => {
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
+  const [image, setImage] = useState(null);
   const { token } = useContext(AuthContext);
 
   const handleForm = async (e) => {
@@ -22,6 +23,7 @@ export const NewPost = ({ addPost }) => {
       const post = await sendPostService({ data, token });
       addPost(post);
       e.target.reset();
+      setImage(null);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -41,7 +43,18 @@ export const NewPost = ({ addPost }) => {
           name="postImage"
           accept="image/*"
           required
+          onChange={(e) => setImage(e.target.files[0])}
         />
+
+        {image ? (
+          <figure>
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Preview"
+              style={{ width: "100px" }}
+            />
+          </figure>
+        ) : null}
       </fieldset>
       <fieldset>
         <label htmlFor="postText">Escribe en el pie de la foto</label>
