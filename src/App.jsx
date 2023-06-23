@@ -10,6 +10,7 @@ import { PostPage } from "./pages/PostsPage";
 import { NotFound } from "./pages/NotFound";
 import { RegisterPage } from "./pages/RegisterPage";
 import { SinglePage } from "./pages/SinglePage";
+import Sidebar from "./component/Sidebar";
 // import usePosts from "./hooks/usePosts";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     <>
       <main>
         <Header />
+        <Sidebar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/user" element={<RegisterPage />} />
