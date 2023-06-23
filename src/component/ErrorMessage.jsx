@@ -13,5 +13,5 @@ export const ErrorMessage = ({message}) => {
 }
 
 ErrorMessage.propTypes = {
-    message: PropTypes.string.isRequired,
+    message: PropTypes.string
   };

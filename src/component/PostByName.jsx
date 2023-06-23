@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Post2 } from "./Post2";
 
 export const PostByName = ({ post }) => {
@@ -12,7 +13,9 @@ export const PostByName = ({ post }) => {
           // Verifica si el objeto post existe y tiene la propiedad id
           return (
             <li key={post.id}>
-              <Post2 post={post} />
+              <Link to={`/p/${post.post_image}`}>
+                <Post2 post={post} />
+              </Link>
             </li>
           );
         }
