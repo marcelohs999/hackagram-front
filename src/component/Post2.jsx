@@ -5,7 +5,6 @@ export const Post2 = ({ post }) => {
 
   // Asegurémonos de que post.comments sea una matriz antes de realizar el map
   const comments = post.comments || [];
-  console.log(post);
   return (
     <article>
       {post.post_image && (
