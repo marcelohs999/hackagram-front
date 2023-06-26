@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import usePostName from "../hooks/usePostName";
 import { ErrorMessage } from "../component/ErrorMessage";
-import { PostByName } from "../component/PostByName";
 import { Post } from "../component/Post";
 
 export const SinglePage = () => {
@@ -16,7 +15,6 @@ export const SinglePage = () => {
     <section>
       <h1>Publicación...</h1>
       {post && <Post post={post} />}{" "}
-      {/* Utiliza el componente Post2 solo si hay una publicación */}
     </section>
   );
 };

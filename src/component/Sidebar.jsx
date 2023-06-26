@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { searchImageService } from "../services";
 import "./styles/Sidebar.css";
@@ -9,8 +9,10 @@ import searchIcon from "../../logos/search.svg";
 import createIcon from "../../logos/plus-square.svg";
 import heartIcon from "../../logos/heart.svg";
 import profileIcon from "../../logos/settings.svg";
+import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = () => {
+  const { user } = useContext(AuthContext);
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
 
@@ -43,9 +45,14 @@ const Sidebar = () => {
           <img src={searchIcon} alt="search" className="sidebar-icon" />{" "}
           Búsqueda
         </li>
-        <li className="sidebar-item">
-          <img src={createIcon} alt="create" className="sidebar-icon" /> Crear
-        </li>
+        {user ? (
+          <Link to="/image">
+            <li className="sidebar-item">
+              <img src={createIcon} alt="create" className="sidebar-icon" />{" "}
+              Crear
+            </li>
+          </Link>
+        ) : null}
         <li className="sidebar-item">
           <img src={heartIcon} alt="notifications" className="sidebar-icon" />{" "}
           Notificaciones

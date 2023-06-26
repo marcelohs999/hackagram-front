@@ -12,6 +12,7 @@ import Sidebar from "./component/Sidebar";
 import "./App.css";
 import { searchImageService } from "./services";
 import SearchResultsPage from "./pages/SearchResultsPage";
+import { NewPostPage } from "./pages/NewPostPage";
 
 function App() {
   //TEST-INICIAL
@@ -36,6 +37,7 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/image" element={<NewPostPage />} />
           <Route path="/user" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/user/:username" element={<PostPage />} />

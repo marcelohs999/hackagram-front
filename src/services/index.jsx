@@ -83,7 +83,7 @@ export const getPostByNameFromUserService = async (post_image) => {
 
 export const sendPostService = async ({ data, token }) => {
   const backendURL = import.meta.env.VITE_BACKEND;
-  const response = await fetch(`${backendURL}/`, {
+  const response = await fetch(`${backendURL}/image`, {
     method: "POST",
     body: data,
     headers: {
