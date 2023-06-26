@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import {getSinglePostService} from "../services"
+import {getPostsfromUserService} from "../services"
 
 const usePost = (username) => {
     const [posts, setPosts] = useState(null)
@@ -11,7 +11,7 @@ const usePost = (username) => {
             try{
                 setLoading(true)
 
-                const data = await getSinglePostService(username)
+                const data = await getPostsfromUserService(username)
                 setPosts(data)
             }catch(error) {
                 setError(error.message)

@@ -9,7 +9,7 @@ export const getAllPostServices = async () => {
   return json.data;
 };
 
-export const getSinglePostService = async (username) => {
+export const getPostsfromUserService = async (username) => {
   const backendURL = import.meta.env.VITE_BACKEND;
   const response = await fetch(`${backendURL}/user/${username}`);
   const json = await response.json();
