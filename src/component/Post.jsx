@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { getPostByNameFromUserService } from "../services";
 
 export const Post = ({ post }) => {
-  console.log(post)
+
   const backendURL = import.meta.env.VITE_BACKEND;
-  const imageName = post?.post_image?.split(".")[0]; // Verificación de post_image
+  const imageName = post?.post_image?.split(".")[0]; 
 
   return (
     <article>

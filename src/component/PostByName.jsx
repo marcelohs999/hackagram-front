@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Post2 } from "./Post2";
+import { Post } from "./Post";
 
 export const PostByName = ({ post }) => {
   // Asegurémonos de que post sea una matriz antes de realizar el map
@@ -14,7 +14,7 @@ export const PostByName = ({ post }) => {
           return (
             <li key={post.id}>
               <Link to={`/p/${post.post_image}`}>
-                <Post2 post={post} />
+                <Post post={post} />
               </Link>
             </li>
           );

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import usePostName from "../hooks/usePostName";
 import { ErrorMessage } from "../component/ErrorMessage";
 import { PostByName } from "../component/PostByName";
-import { Post2 } from "../component/Post2";
+import { Post } from "../component/Post";
 
 export const SinglePage = () => {
   const { post_image } = useParams();
@@ -15,7 +15,7 @@ export const SinglePage = () => {
   return (
     <section>
       <h1>Publicación...</h1>
-      {post && <Post2 post={post} />}{" "}
+      {post && <Post post={post} />}{" "}
       {/* Utiliza el componente Post2 solo si hay una publicación */}
     </section>
   );
