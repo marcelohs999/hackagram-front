@@ -7,7 +7,6 @@ export const PostList = ({ posts }) => {
     <ul>
       {posts.map((post) => {
         if (post && post.id) {
-          // Verifica si el objeto post existe y tiene la propiedad id
           return (
             <li key={post.id}>
               <Post post={post} />

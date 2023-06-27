@@ -5,7 +5,7 @@ import { getPostByNameFromUserService } from "../services";
 export const Post = ({ post }) => {
   const backendURL = import.meta.env.VITE_BACKEND;
   const imageName = post?.post_image?.split(".")[0];
-
+  console.log(post.created_at);
   return (
     <article>
       {post?.post_image && (

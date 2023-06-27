@@ -42,7 +42,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/user/:username" element={<PostPage />} />
           <Route path="/p/:post_image" element={<SinglePage />} />
-          <Route path="/search/:post_text" element={<SearchResultsPage />} />
+          <Route path="/search" element={<SearchResultsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
