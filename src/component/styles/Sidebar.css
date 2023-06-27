@@ -2,11 +2,11 @@
   width: 200px;
   background-color: #f0f0f0;
   padding: 20px;
-  position: fixed; /* Añade esta línea para que la barra lateral sea fija */
-  left: 0; /* Ajusta la posición izquierda según tus necesidades */
-  top: 0; /* Ajusta la posición superior según tus necesidades */
-  height: 100vh; /* Establece la altura de la barra lateral como el 100% de la altura de la ventana */
-  overflow-y: auto; /* Agrega una barra de desplazamiento si el contenido excede la altura */
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .hackagram-logo {

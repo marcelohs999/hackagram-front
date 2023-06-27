@@ -1,17 +1,24 @@
-import { useContext,  useEffect } from "react"
-import { Link } from "react-router-dom"
-import { AuthContext } from "../../context/AuthContext"
+import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import "./styles/Auth.css";
 
 export const Auth = () => {
-    const { user, logout} = useContext(AuthContext)
+  const { user, logout } = useContext(AuthContext);
 
-    
-
-    return user ? (
-       <p>El usuario esta conectado como {user.email} <button onClick={() => logout()}>Logout</button></p>) : (
-        <ul>
-            <li><Link to='/user'> Register </Link> </li> 
-            <li><Link to='/login'> Login </Link> </li> 
-        </ul>
-    )
-}
+  return user ? (
+    <p>
+      El usuario esta conectado como {user.email}{" "}
+      <button onClick={() => logout()}>Logout</button>
+    </p>
+  ) : (
+    <ul>
+      <li>
+        <Link to="/user"> Register </Link>{" "}
+      </li>
+      <li>
+        <Link to="/login"> Login </Link>{" "}
+      </li>
+    </ul>
+  );
+};

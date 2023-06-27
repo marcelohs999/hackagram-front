@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { getPostByNameFromUserService } from "../services";
 
 export const Post = ({ post }) => {
-
   const backendURL = import.meta.env.VITE_BACKEND;
-  const imageName = post?.post_image?.split(".")[0]; 
+  const imageName = post?.post_image?.split(".")[0];
 
   return (
     <article>
@@ -25,7 +24,8 @@ export const Post = ({ post }) => {
       {post?.post_text && <p>{post.post_text}</p>}
       {post?.username && (
         <p>
-          By {post.username} on {new Date(post.created_at).toLocaleString()}
+          Creado por <Link to={`/user/${post.username}`}>{post.username}</Link>{" "}
+          el {new Date(post.created_at).toLocaleString()}
         </p>
       )}
       <p>Likes {post?.likes}</p>
@@ -39,12 +39,11 @@ export const Post = ({ post }) => {
   );
 };
 
-
 Post.propTypes = {
   post: PropTypes.shape({
     post_image: PropTypes.string.isRequired,
     post_text: PropTypes.string,
-    username: PropTypes.string,//se quito el is Required porque sino no funciona el ver un usuario por su username. Gestionar el error si el usuario es undefined
+    username: PropTypes.string, //se quito el is Required porque sino no funciona el ver un usuario por su username. Gestionar el error si el usuario es undefined
     created_at: PropTypes.string.isRequired,
     likes: PropTypes.number,
     comments: PropTypes.arrayOf(

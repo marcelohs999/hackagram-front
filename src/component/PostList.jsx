@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { Post } from "./Post";
+import "./styles/PostList.css";
 
 export const PostList = ({ posts }) => {
   return posts.length ? (
