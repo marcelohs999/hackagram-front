@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import "./styles/Auth.css";
 
 export const Auth = () => {
   const { user, logout } = useContext(AuthContext);
