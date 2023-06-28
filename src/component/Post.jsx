@@ -1,6 +1,13 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { getPostByNameFromUserService } from "../services";
+import "./styles/Post.css";
+
+// Iconos
+import heartIcon from "../../logos/heart.svg";
+import messageIcon from "../../logos/message.svg";
+import sendIcon from "../../logos/send.svg";
+import bookmarkIcon from "../../logos/bookmark.svg";
 
 export const Post = ({ post }) => {
   const backendURL = import.meta.env.VITE_BACKEND;
@@ -8,6 +15,12 @@ export const Post = ({ post }) => {
   console.log(post.created_at);
   return (
     <article>
+      {post?.username && (
+        <p className="post-user-top">
+          Creado por <Link to={`/user/${post.username}`}>{post.username}</Link>{" "}
+          el {new Date(post.created_at).toLocaleString()}
+        </p>
+      )}
       {post?.post_image && (
         <div>
           <Link
@@ -21,14 +34,25 @@ export const Post = ({ post }) => {
           </Link>
         </div>
       )}
-      {post?.post_text && <p>{post.post_text}</p>}
-      {post?.username && (
-        <p>
-          Creado por <Link to={`/user/${post.username}`}>{post.username}</Link>{" "}
-          el {new Date(post.created_at).toLocaleString()}
+
+      <div className="post-icons-below">
+        <img src={heartIcon} alt="Icono de Like"></img>
+        <img src={messageIcon} alt="Icono de Mensajes"></img>
+        <img src={sendIcon} alt="Icono de Compartir"></img>
+        <img
+          src={bookmarkIcon}
+          alt="Icono de Marcadores"
+          className="post-icons-bookmark"
+        ></img>
+      </div>
+      <p className="likes-count">Likes = {post?.likes}</p>
+      {/* NOTA: si post_text es muy largo, rompe la posición entre img y resto */}
+      {post?.post_text && (
+        <p className="initial-post-text">
+          <span className="post-user-bold">{post.username}</span>:{" "}
+          {post.post_text}
         </p>
       )}
-      <p>Likes {post?.likes}</p>
       <ul>
         {post?.comments &&
           post.comments.map((comment) => (

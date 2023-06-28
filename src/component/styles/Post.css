@@ -1,0 +1,25 @@
+.post-user-top {
+  text-align: left;
+}
+
+.post-icons-below {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.likes-count {
+  text-align: left;
+}
+
+.post-user-bold {
+  font-weight: bold;
+}
+
+.initial-post-text {
+  text-align: left;
+}
+
+/* article {
+  border: 1px solid gainsboro;
+  margin-bottom: 2rem;
+} */

@@ -3,6 +3,8 @@ import usePost from "../hooks/usePost";
 import { ErrorMessage } from "../component/ErrorMessage";
 import { Post } from "../component/Post";
 import "./styles/PostPage.css";
+import { ProfilePosts } from "../component/ProfilePosts";
+// NOTA - Corregir iconos de Post.css que se come aquí
 
 export const PostPage = () => {
   const { username } = useParams();
@@ -17,7 +19,7 @@ export const PostPage = () => {
       <h1>Publicaciones de {username}</h1>
       <div className="image-container">
         {posts.map((post) => (
-          <Post key={post.id} post={post} />
+          <ProfilePosts key={post.id} post={post} />
         ))}
       </div>
     </section>
