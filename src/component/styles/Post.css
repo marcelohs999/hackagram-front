@@ -19,6 +19,11 @@
   text-align: left;
 }
 
+.url-copy {
+  text-align: left;
+  color: rgb(71, 114, 8);
+}
+
 /* article {
   border: 1px solid gainsboro;
   margin-bottom: 2rem;
