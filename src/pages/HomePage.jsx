@@ -3,7 +3,7 @@ import { PostList } from "../component/PostList";
 import usePosts from "../hooks/usePosts";
 
 export const HomePage = () => {
-  const { posts, loading, error } = usePosts();
+  const { posts, loading, error, removePost } = usePosts();
 
   if (loading) return <p>cargando posts...</p>;
   if (error) return <ErrorMessage message={error} />;
@@ -11,7 +11,7 @@ export const HomePage = () => {
   return (
     <section>
       <h1>Últimas publicaciones</h1>
-      <PostList posts={posts} />
+      <PostList posts={posts} removePost={removePost} />
     </section>
   );
 };

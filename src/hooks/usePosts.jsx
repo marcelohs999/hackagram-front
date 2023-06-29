@@ -28,7 +28,11 @@ const usePosts = () => {
     setPosts([post, ...posts]);
   };
 
-  return { posts, loading, error, addPost };
+  const removePost = (id) => {
+    setPosts(posts.filter((post) => post.id !== id));
+  };
+
+  return { posts, loading, error, addPost, removePost };
 };
 
 export default usePosts;

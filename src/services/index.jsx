@@ -106,3 +106,36 @@ export const searchImageService = async ({ post_text }) => {
   }
   return json.data;
 };
+
+export const likeImageService = async (token, postId) => {
+  const backendURL = import.meta.env.VITE_BACKEND;
+  const response = await fetch(`${backendURL}/image/${postId}/like`, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  });
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+
+  return json.data;
+};
+
+export const deletePostService = async (id, token) => {
+  const backendURL = import.meta.env.VITE_BACKEND;
+  const response = await fetch(`${backendURL}/image/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+};

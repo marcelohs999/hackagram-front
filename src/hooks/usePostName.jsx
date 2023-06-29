@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { getPostByNameFromUserService } from "../services";
+import { useNavigate } from "react-router-dom";
 
 const usePostName = (post_image) => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadPost = async () => {
@@ -21,6 +23,12 @@ const usePostName = (post_image) => {
     };
     loadPost();
   }, [post_image]);
-  return { post, loading, error };
+
+  const removePost = (id) => {
+    setPost(post.id !== id);
+    navigate("/");
+  };
+
+  return { post, loading, error, removePost };
 };
 export default usePostName;

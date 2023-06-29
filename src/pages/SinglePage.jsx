@@ -6,15 +6,15 @@ import { Post } from "../component/Post";
 export const SinglePage = () => {
   const { post_image } = useParams();
 
-  const { post, loading, error } = usePostName(post_image);
+  const { post, loading, error, removePost } = usePostName(post_image);
 
   if (loading) return <p>Cargando publicación...</p>;
-  if (error) return <ErrorMessage message={error.message} />; // Asegúrate de pasar el mensaje de error correctamente
+  if (error) return <ErrorMessage message={error.message} />;
 
   return (
     <section>
       <h1>Publicación...</h1>
-      {post && <Post post={post} />}{" "}
+      {post && <Post post={post} removePost={removePost} />}
     </section>
   );
 };
