@@ -8,10 +8,10 @@ import {
 import "./styles/Post.css";
 
 // Iconos
-import heartIcon from "../../logos/heart.svg";
 import messageIcon from "../../logos/message.svg";
 import sendIcon from "../../logos/send.svg";
 import bookmarkIcon from "../../logos/bookmark.svg";
+import trashIcon from "../../logos/trash.svg";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { LikeButton } from "./LikesButton";
@@ -19,9 +19,17 @@ import { LikeButton } from "./LikesButton";
 export const Post = ({ post, removePost }) => {
   const backendURL = import.meta.env.VITE_BACKEND;
   const imageName = post?.post_image?.split(".")[0];
+  const [isShareOpen, setIsShareOpen] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
   const { user, token } = useContext(AuthContext);
   const [error, setError] = useState("");
-  const [likes, setLikes] = useState("");
+  const [likes, setLikes] = useState(post.likes);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
+  const toggleShare = () => {
+    resetCopySuccess();
+    setIsShareOpen(!isShareOpen);
+  };
 
   const deletePost = async (id) => {
     try {
@@ -30,6 +38,26 @@ export const Post = ({ post, removePost }) => {
     } catch (error) {
       setError(error.message);
     }
+  };
+
+  const copyPostUrl = () => {
+    const postUrl = `${window.location.origin}/p/${imageName}`;
+    navigator.clipboard
+      .writeText(postUrl)
+      .then(() => {
+        setCopySuccess(true);
+        setTimeout(() => {
+          setCopySuccess(false);
+        }, 1000);
+      })
+      .catch((error) => {
+        console.error("Error al copiar la URL:", error);
+        setCopySuccess(false);
+      });
+  };
+
+  const resetCopySuccess = () => {
+    setCopySuccess(false);
   };
 
   const handleLike = async () => {
@@ -51,19 +79,6 @@ export const Post = ({ post, removePost }) => {
         </p>
       )}
 
-      {user && user.id === post.user_id ? (
-        <section>
-          <button
-            onClick={() => {
-              deletePost(post.id);
-            }}
-          >
-            Delete
-          </button>
-          {error ? <p>{error}</p> : null}
-        </section>
-      ) : null}
-
       {post?.post_image && (
         <div>
           <Link
@@ -78,20 +93,56 @@ export const Post = ({ post, removePost }) => {
         </div>
       )}
 
-      {user
-        ? post && <LikeButton postId={post.id} handleLike={handleLike} />
-        : null}
-
       <div className="post-icons-below">
-        <img src={heartIcon} alt="Icono de Like"></img>
-        <img src={messageIcon} alt="Icono de Mensajes"></img>
-        <img src={sendIcon} alt="Icono de Compartir"></img>
-        <img
-          src={bookmarkIcon}
-          alt="Icono de Marcadores"
-          className="post-icons-bookmark"
-        ></img>
+        {/* <img src={heartIcon} alt="Icono de Like"></img> */}
+        {user
+          ? post && <LikeButton postId={post.id} handleLike={handleLike} />
+          : null}
+        <Link to="#">
+          <img src={messageIcon} alt="Icono de Mensajes"></img>
+        </Link>
+        <Link to="#">
+          <img
+            src={sendIcon}
+            alt="Icono de Compartir"
+            onClick={toggleShare}
+          ></img>
+        </Link>
+        {isShareOpen && (
+          <div>
+            <button className="share-button" onClick={copyPostUrl}>
+              Copiar
+            </button>
+          </div>
+        )}
+        <Link to="#">
+          <img
+            src={bookmarkIcon}
+            alt="Icono de Marcadores"
+            className="post-icons-bookmark"
+          ></img>
+        </Link>
+
+        {user && user.id === post.user_id ? (
+          <Link to="#">
+            <img
+              src={trashIcon}
+              onClick={() => setShowDeleteConfirmation(true)}
+            ></img>
+            {error ? <p>{error}</p> : null}
+          </Link>
+        ) : null}
+
+        {showDeleteConfirmation && (
+          <div className="delete-confirmation">
+            <p>¿Estás seguro de que deseas borrar esta publicación?</p>
+            <button onClick={() => deletePost(post.id)}>Sí</button>
+            <button onClick={() => setShowDeleteConfirmation(false)}>No</button>
+          </div>
+        )}
       </div>
+      {copySuccess && <p className="url-copy">¡URL copiada correctamente!</p>}
+      {/* Arreglar conteo de likes ya que no muestra nada de inicio (pero cuenta bien) */}
       <p className="likes-count">Likes = {likes}</p>
       {/* NOTA: si post_text es muy largo, rompe la posición entre img y resto */}
       {post?.post_text && (
@@ -114,7 +165,7 @@ Post.propTypes = {
   post: PropTypes.shape({
     post_image: PropTypes.string.isRequired,
     post_text: PropTypes.string,
-    username: PropTypes.string, //se quito el is Required porque sino no funciona el ver un usuario por su username. Gestionar el error si el usuario es undefined
+    username: PropTypes.string,
     created_at: PropTypes.string.isRequired,
     likes: PropTypes.number,
     comments: PropTypes.arrayOf(

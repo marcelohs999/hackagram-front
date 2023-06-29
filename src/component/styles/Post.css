@@ -24,6 +24,20 @@
   color: rgb(71, 114, 8);
 }
 
+.share-button {
+  padding: 0;
+}
+
+.delete-confirmation {
+  /* position: absolute;
+  top: 50%;
+  left: 50%; */
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid;
+}
+
 /* article {
   border: 1px solid gainsboro;
   margin-bottom: 2rem;
