@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { searchImageService } from "../services";
+import { useEffect, useState } from "react";
+import { searchImageService, searchUserService } from "../services";
 import { useSearchParams } from "react-router-dom";
 import { PostList } from "../component/PostList";
 import "./styles/SearchResultsPage.css";
+import { UserList } from "../component/UserList";
 
 const SearchResultsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -50,10 +51,10 @@ const SearchResultsPage = () => {
             setResults([]);
             return;
           }
-          // const searchResults = await searchUserService({
-          //   username: searchParams.get("username"),
-          // });
-          // setResults(searchResults);
+          const searchResults = await searchUserService({
+            username: searchParams.get("username"),
+          });
+          setResults(searchResults);
         }
       } catch (error) {
         setResults([]);
@@ -62,7 +63,6 @@ const SearchResultsPage = () => {
     };
     fetchSearchResults();
   }, [searchParams]);
-  console.log(results);
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -89,8 +89,11 @@ const SearchResultsPage = () => {
         Usuarios
       </button>
       <h2>Resultados de búsqueda</h2>
-      <PostList posts={results} />
-      {/* {filterBy === "posts" ? <PostList posts={results} /> : UserList CREAR} */}
+      {filterBy === "posts" ? (
+        <PostList posts={results} />
+      ) : (
+        <UserList username={results} />
+      )}
     </div>
   );
 };

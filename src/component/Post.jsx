@@ -12,6 +12,7 @@ import messageIcon from "../../logos/message.svg";
 import sendIcon from "../../logos/send.svg";
 import bookmarkIcon from "../../logos/bookmark.svg";
 import trashIcon from "../../logos/trash.svg";
+import likeIcon from "../../logos/like.svg";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { LikeButton } from "./LikesButton";

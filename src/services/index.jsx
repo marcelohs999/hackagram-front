@@ -139,3 +139,13 @@ export const deletePostService = async (id, token) => {
     throw new Error(json.message);
   }
 };
+
+export const searchUserService = async ({ username }) => {
+  const backendURL = import.meta.env.VITE_BACKEND;
+  const response = await fetch(`${backendURL}/username/${username}`);
+  const json = await response.json();
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+  return json.data;
+};
