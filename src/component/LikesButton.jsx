@@ -1,14 +1,21 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import heartIcon from "../../logos/heart.svg";
+import likeIcon from "../../logos/like.svg";
 
-export const LikeButton = ({ handleLike }) => {
+export const LikeButton = ({ handleLike, likedByUser }) => {
+  const toggleLike = () => {
+    handleLike();
+  };
+
   return (
     <div>
-      {/* <button className="button-like-img" onClick={handleLike}>
-        <img src={heartIcon} alt="Icono de Like"></img>
-      </button> ORIGINAL */}
-      <Link to="#" className="button-like-img" onClick={handleLike}>
-        <img src={heartIcon} alt="Icono de Like"></img>
+      <Link
+        to="#"
+        className={`button-like-img ${likedByUser ? "liked" : ""}`}
+        onClick={toggleLike}
+      >
+        <img src={likedByUser ? likeIcon : heartIcon} alt="Icono de Like" />
       </Link>
     </div>
   );

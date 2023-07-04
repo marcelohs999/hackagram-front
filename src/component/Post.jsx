@@ -12,8 +12,7 @@ import messageIcon from "../../logos/message.svg";
 import sendIcon from "../../logos/send.svg";
 import bookmarkIcon from "../../logos/bookmark.svg";
 import trashIcon from "../../logos/trash.svg";
-import likeIcon from "../../logos/like.svg";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { LikeButton } from "./LikesButton";
 
@@ -25,8 +24,21 @@ export const Post = ({ post, removePost }) => {
   const { user, token } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [likes, setLikes] = useState(post.likes);
+  const [likedByUser, setLikedByUser] = useState(post.likedByLoggedUser)
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-
+useEffect (()=> {
+  const checkLikedByUser = async () => {
+    if (user) {
+      try {
+        const data = await likeImageService(token, post.id);
+        setLikedByUser (data.likedByLoggedUser)
+      } catch (error) {
+        setError(error.message)
+      }
+    }
+  }
+  checkLikedByUser() 
+}, [user, token, post.id])
   const toggleShare = () => {
     resetCopySuccess();
     setIsShareOpen(!isShareOpen);
@@ -64,14 +76,14 @@ export const Post = ({ post, removePost }) => {
   const handleLike = async () => {
     try {
       const data = await likeImageService(token, post.id);
-
       setLikes(data.likes);
+      setLikedByUser(!likedByUser); // Aquí se invierte el valor de liked
     } catch (error) {
       setError(error.message);
     }
   };
-
   return (
+    
     <article>
       {post?.username && (
         <p className="post-user-top">
@@ -97,7 +109,7 @@ export const Post = ({ post, removePost }) => {
       <div className="post-icons-below">
         {/* <img src={heartIcon} alt="Icono de Like"></img> */}
         {user
-          ? post && <LikeButton postId={post.id} handleLike={handleLike} />
+          ? post && <LikeButton postId={post.id} handleLike={handleLike} likedByUser={likedByUser}/>
           : null}
         <Link to="#">
           <img src={messageIcon} alt="Icono de Mensajes"></img>
