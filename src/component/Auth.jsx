@@ -7,7 +7,18 @@ export const Auth = () => {
 
   return user ? (
     <p>
-      El usuario esta conectado como {user.email}{" "}
+      El usuario esta conectado como {user.username}
+      <Link to="/profile">
+        {" "}
+        <img
+          src={
+            user.avatar
+              ? `../../avatar/${user.avatar}`
+              : `../../avatar/avatar.jpg`
+          }
+          alt="Imagen del avatar"
+        />
+      </Link>{" "}
       <button onClick={() => logout()}>Logout</button>
     </p>
   ) : (

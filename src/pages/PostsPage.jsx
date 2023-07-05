@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import usePost from "../hooks/usePost";
 import { ErrorMessage } from "../component/ErrorMessage";
-import { Post } from "../component/Post";
 import "./styles/PostPage.css";
 import { ProfilePosts } from "../component/ProfilePosts";
 // NOTA - Corregir iconos de Post.css que se come aquí

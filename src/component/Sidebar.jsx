@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { searchImageService } from "../services";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import "./styles/Sidebar.css";
 
 import instaLogo from "../../logos/instagram.svg";
@@ -13,21 +12,6 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
-  const [searchText, setSearchText] = useState("");
-  const navigate = useNavigate();
-
-  const handleSearch = () => {
-    navigate(`/search/${searchText}`);
-  };
-
-  //   const handleSearch = async () => {
-  //     try {
-  //       const searchData = await searchImageService({ post_text: "buscar" });
-  //       console.log(searchData);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
 
   return (
     <div className="sidebar">
@@ -41,10 +25,12 @@ const Sidebar = () => {
             <img src={homeIcon} alt="Home" className="sidebar-icon" /> Inicio
           </li>
         </Link>
-        <li className="sidebar-item" onClick={handleSearch}>
-          <img src={searchIcon} alt="search" className="sidebar-icon" />{" "}
-          Búsqueda
-        </li>
+        <Link to="/search">
+          <li className="sidebar-item">
+            <img src={searchIcon} alt="search" className="sidebar-icon" />{" "}
+            Búsqueda
+          </li>
+        </Link>
         {user ? (
           <Link to="/image">
             <li className="sidebar-item">
@@ -57,10 +43,12 @@ const Sidebar = () => {
           <img src={heartIcon} alt="notifications" className="sidebar-icon" />{" "}
           Notificaciones
         </li>
-        <li className="sidebar-item">
-          <img src={profileIcon} alt="profile" className="sidebar-icon" />{" "}
-          Perfil
-        </li>
+        <Link to="/profile">
+          <li className="sidebar-item">
+            <img src={profileIcon} alt="profile" className="sidebar-icon" />{" "}
+            Perfil
+          </li>
+        </Link>
       </ul>
     </div>
   );

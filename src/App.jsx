@@ -10,31 +10,15 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { SinglePage } from "./pages/SinglePage";
 import Sidebar from "./component/Sidebar";
 import "./App.css";
-import { searchImageService } from "./services";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { NewPostPage } from "./pages/NewPostPage";
 import { ProfilePage } from "./pages/ProfilePage";
 
 function App() {
-  //TEST-INICIAL
-  const [searchResults, setSearchResults] = useState([]);
-  const navigate = useNavigate();
-  //FIN
-  //TEST-SIGUE
-  const handleSearch = async (postText) => {
-    try {
-      const searchData = await searchImageService({ post_text: postText });
-      setSearchResults(searchData);
-      navigate("/image");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  //FIN
   return (
     <>
       <main>
-        <Header onSearch={handleSearch} />
+        <Header />
         <Sidebar />
         <Routes>
           <Route path="/" element={<HomePage />} />
