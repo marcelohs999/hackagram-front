@@ -1,6 +1,15 @@
-export const getAllPostServices = async () => {
+export const getAllPostServices = async (token) => {
   const backendURL = import.meta.env.VITE_BACKEND;
-  const response = await fetch(`${backendURL}/`);
+  const response = await fetch(
+    `${backendURL}/`,
+    token
+      ? {
+          headers: {
+            Authorization: token,
+          },
+        }
+      : null
+  );
 
   const json = await response.json();
   if (!response.ok) {
@@ -71,9 +80,18 @@ export const getMyUserDataService = async ({ token }) => {
   return json.data;
 };
 
-export const getPostByNameFromUserService = async (post_image) => {
+export const getPostByNameFromUserService = async (post_image, token) => {
   const backendURL = import.meta.env.VITE_BACKEND;
-  const response = await fetch(`${backendURL}/p/${post_image}`);
+  const response = await fetch(
+    `${backendURL}/p/${post_image}`,
+    token
+      ? {
+          headers: {
+            Authorization: token,
+          },
+        }
+      : null
+  );
   const json = await response.json();
   if (!response.ok) {
     throw new Error(json.message);

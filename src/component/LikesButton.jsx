@@ -7,7 +7,7 @@ export const LikeButton = ({ handleLike, likedByUser }) => {
   const toggleLike = () => {
     handleLike();
   };
-
+  console.log(likedByUser);
   return (
     <div>
       <Link

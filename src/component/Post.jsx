@@ -24,21 +24,23 @@ export const Post = ({ post, removePost }) => {
   const { user, token } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [likes, setLikes] = useState(post.likes);
-  const [likedByUser, setLikedByUser] = useState(post.likedByLoggedUser)
+  const [likedByUser, setLikedByUser] = useState(post.likedByLoggedUser);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-useEffect (()=> {
-  const checkLikedByUser = async () => {
-    if (user) {
-      try {
-        const data = await likeImageService(token, post.id);
-        setLikedByUser (data.likedByLoggedUser)
-      } catch (error) {
-        setError(error.message)
-      }
-    }
-  }
-  checkLikedByUser() 
-}, [user, token, post.id])
+  // useEffect(() => {
+  //   const checkLikedByUser = async () => {
+  //     if (user) {
+  //       try {
+  //         const data = await likeImageService(token, post.id);
+  //         console.log(data);
+  //         setLikedByUser(data.likedByLoggedUser);
+  //       } catch (error) {
+  //         setError(error.message);
+  //       }
+  //     }
+  //   };
+  //   checkLikedByUser();
+  // }, [user, token, post.id]);
+
   const toggleShare = () => {
     resetCopySuccess();
     setIsShareOpen(!isShareOpen);
@@ -76,14 +78,14 @@ useEffect (()=> {
   const handleLike = async () => {
     try {
       const data = await likeImageService(token, post.id);
+
       setLikes(data.likes);
-      setLikedByUser(!likedByUser); // Aquí se invierte el valor de liked
+      setLikedByUser(data.likedByLoggedUser); // Aquí se invierte el valor de liked
     } catch (error) {
       setError(error.message);
     }
   };
   return (
-    
     <article>
       {post?.username && (
         <p className="post-user-top">
@@ -109,7 +111,13 @@ useEffect (()=> {
       <div className="post-icons-below">
         {/* <img src={heartIcon} alt="Icono de Like"></img> */}
         {user
-          ? post && <LikeButton postId={post.id} handleLike={handleLike} likedByUser={likedByUser}/>
+          ? post && (
+              <LikeButton
+                postId={post.id}
+                handleLike={handleLike}
+                likedByUser={likedByUser}
+              />
+            )
           : null}
         <Link to="#">
           <img src={messageIcon} alt="Icono de Mensajes"></img>
