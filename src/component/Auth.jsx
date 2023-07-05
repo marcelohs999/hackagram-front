@@ -4,16 +4,17 @@ import { AuthContext } from "../../context/AuthContext";
 
 export const Auth = () => {
   const { user, logout } = useContext(AuthContext);
+  const backendURL = import.meta.env.VITE_BACKEND;
 
   return user ? (
     <p>
-      El usuario esta conectado como {user.username}
+      El usuario esta conectado como {user.username},
       <Link to="/profile">
         {" "}
         <img
           src={
             user.avatar
-              ? `../../avatar/${user.avatar}`
+              ? `${backendURL}/uploads/avatars/${user.avatar}`
               : `../../avatar/avatar.jpg`
           }
           alt="Imagen del avatar"
