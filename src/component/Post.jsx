@@ -26,20 +26,6 @@ export const Post = ({ post, removePost }) => {
   const [likes, setLikes] = useState(post.likes);
   const [likedByUser, setLikedByUser] = useState(post.likedByLoggedUser);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  // useEffect(() => {
-  //   const checkLikedByUser = async () => {
-  //     if (user) {
-  //       try {
-  //         const data = await likeImageService(token, post.id);
-  //         console.log(data);
-  //         setLikedByUser(data.likedByLoggedUser);
-  //       } catch (error) {
-  //         setError(error.message);
-  //       }
-  //     }
-  //   };
-  //   checkLikedByUser();
-  // }, [user, token, post.id]);
 
   const toggleShare = () => {
     resetCopySuccess();
@@ -119,16 +105,12 @@ export const Post = ({ post, removePost }) => {
               />
             )
           : null}
-        <Link to="#">
-          <img src={messageIcon} alt="Icono de Mensajes"></img>
-        </Link>
-        <Link to="#">
-          <img
-            src={sendIcon}
-            alt="Icono de Compartir"
-            onClick={toggleShare}
-          ></img>
-        </Link>
+        <img src={messageIcon} alt="Icono de Mensajes"></img>
+        <img
+          src={sendIcon}
+          alt="Icono de Compartir"
+          onClick={toggleShare}
+        ></img>
         {isShareOpen && (
           <div>
             <button className="share-button" onClick={copyPostUrl}>
@@ -136,22 +118,20 @@ export const Post = ({ post, removePost }) => {
             </button>
           </div>
         )}
-        <Link to="#">
-          <img
-            src={bookmarkIcon}
-            alt="Icono de Marcadores"
-            className="post-icons-bookmark"
-          ></img>
-        </Link>
+        <img
+          src={bookmarkIcon}
+          alt="Icono de Marcadores"
+          className="post-icons-bookmark"
+        ></img>
 
         {user && user.id === post.user_id ? (
-          <Link to="#">
+          <>
             <img
               src={trashIcon}
               onClick={() => setShowDeleteConfirmation(true)}
             ></img>
             {error ? <p>{error}</p> : null}
-          </Link>
+          </>
         ) : null}
 
         {showDeleteConfirmation && (

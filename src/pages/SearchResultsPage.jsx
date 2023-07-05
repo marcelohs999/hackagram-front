@@ -32,7 +32,6 @@ const SearchResultsPage = () => {
     setSearch(e.target.value);
   };
 
-  console.log(searchParams.get("post_text"));
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {

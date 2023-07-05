@@ -7,16 +7,12 @@ export const LikeButton = ({ handleLike, likedByUser }) => {
   const toggleLike = () => {
     handleLike();
   };
-  console.log(likedByUser);
   return (
-    <div>
-      <Link
-        to="#"
-        className={`button-like-img ${likedByUser ? "liked" : ""}`}
-        onClick={toggleLike}
-      >
-        <img src={likedByUser ? likeIcon : heartIcon} alt="Icono de Like" />
-      </Link>
+    <div
+      className={`button-like-img ${likedByUser ? "liked" : ""}`}
+      onClick={toggleLike}
+    >
+      <img src={likedByUser ? likeIcon : heartIcon} alt="Icono de Like" />
     </div>
   );
 };

@@ -13,6 +13,7 @@ import "./App.css";
 import { searchImageService } from "./services";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { NewPostPage } from "./pages/NewPostPage";
+import { ProfilePage } from "./pages/ProfilePage";
 
 function App() {
   //TEST-INICIAL
@@ -43,6 +44,7 @@ function App() {
           <Route path="/user/:username" element={<PostPage />} />
           <Route path="/p/:post_image" element={<SinglePage />} />
           <Route path="/search" element={<SearchResultsPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
