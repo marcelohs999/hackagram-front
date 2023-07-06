@@ -1,17 +1,31 @@
 .sidebar {
-  width: 200px;
+  width: 100%;
   background-color: #f0f0f0;
   padding: 20px;
   position: fixed;
-  left: 0;
-  bottom: 0;
   top: 0;
-  /* height: 100vh; */
-  overflow-y: auto;
+  left: 0;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    width: 20%;
+    max-width: 200px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+.hacka-bartext {
+  font-size: larger;
+  font-weight: bold;
 }
 
 .hackagram-logo {
-  padding-bottom: 3rem;
+  width: 40%;
+  margin-bottom: 2rem;
 }
 
 .sidebar-nav {
@@ -39,4 +53,39 @@
   width: 20px;
   height: 20px;
   margin-right: 10px;
+}
+
+/* Con pantallas móviles, SIDEBAR se sitúa arriba */
+@media (max-width: 767px) {
+  .sidebar {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+  }
+
+  .hacka-bartext {
+    font-size: large;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .hackagram-logo {
+    display: none;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .sidebar-item {
+    padding: 5px;
+  }
+
+  .text-from-sidebar {
+    display: none;
+  }
 }

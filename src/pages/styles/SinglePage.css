@@ -1,0 +1,12 @@
+.singlepost-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+/* La SIDEBAR se come unos pixeles. Buscar el error (quizás App.css | index.css) */
+@media (min-width: 768px) {
+  .singlepost-container {
+    margin-left: 200px;
+  }
+}

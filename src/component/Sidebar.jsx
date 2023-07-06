@@ -15,38 +15,39 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
-      <p>Hackagram</p>
+      <p className="hacka-bartext">Hackagram</p>
       <Link to="/">
         <img src={instaLogo} alt="Hackagram" className="hackagram-logo" />
       </Link>
       <ul className="sidebar-nav">
         <Link to="/">
           <li className="sidebar-item">
-            <img src={homeIcon} alt="Home" className="sidebar-icon" /> Inicio
+            <img src={homeIcon} alt="Home" className="sidebar-icon" />{" "}
+            <span className="text-from-sidebar">Inicio</span>
           </li>
         </Link>
         <Link to="/search">
           <li className="sidebar-item">
             <img src={searchIcon} alt="search" className="sidebar-icon" />{" "}
-            Búsqueda
+            <span className="text-from-sidebar">Búsqueda</span>
           </li>
         </Link>
         {user ? (
           <Link to="/image">
             <li className="sidebar-item">
               <img src={createIcon} alt="create" className="sidebar-icon" />{" "}
-              Crear
+              <span className="text-from-sidebar">Crear</span>
             </li>
           </Link>
         ) : null}
         <li className="sidebar-item">
           <img src={heartIcon} alt="notifications" className="sidebar-icon" />{" "}
-          Notificaciones
+          <span className="text-from-sidebar">Notificaciones</span>
         </li>
         <Link to="/profile">
           <li className="sidebar-item">
             <img src={profileIcon} alt="profile" className="sidebar-icon" />{" "}
-            Perfil
+            <span className="text-from-sidebar">Perfil</span>
           </li>
         </Link>
       </ul>

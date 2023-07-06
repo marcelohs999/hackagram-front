@@ -72,7 +72,7 @@ export const Post = ({ post, removePost }) => {
     }
   };
   return (
-    <article>
+    <article className="post-container">
       {post?.username && (
         <p className="post-user-top">
           Creado por <Link to={`/user/${post.username}`}>{post.username}</Link>{" "}

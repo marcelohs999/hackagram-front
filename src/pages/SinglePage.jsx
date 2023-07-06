@@ -12,7 +12,7 @@ export const SinglePage = () => {
   if (error) return <ErrorMessage message={error.message} />;
 
   return (
-    <section>
+    <section className="singlepost-container">
       <h1>Publicación...</h1>
       {post && <Post post={post} removePost={removePost} />}
     </section>

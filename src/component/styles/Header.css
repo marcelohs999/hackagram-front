@@ -1,0 +1,9 @@
+/* Con pantallas móviles, desaparece el h1 y recolocamos auth */
+@media (max-width: 767px) {
+  .h1-text-container {
+    display: none;
+  }
+  .auth-container {
+    padding-top: 5rem;
+  }
+}

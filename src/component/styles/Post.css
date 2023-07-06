@@ -1,3 +1,22 @@
+.post-container {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .post-container {
+    margin-left: 200px;
+    max-width: calc(100% - 200px);
+  }
+}
+
+.post-container img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
 .post-user-top {
   text-align: left;
 }
@@ -29,17 +48,8 @@
 }
 
 .delete-confirmation {
-  /* position: absolute;
-  top: 50%;
-  left: 50%; */
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 20px;
   border: 1px solid;
-  border-radius: 15px;
 }
-
-/* article {
-  border: 1px solid gainsboro;
-  margin-bottom: 2rem;
-} */

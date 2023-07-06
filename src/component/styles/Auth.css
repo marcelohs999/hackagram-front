@@ -1,0 +1,27 @@
+.avatar-container {
+  width: 25%;
+  border-radius: 50%;
+  padding: 0 auto;
+}
+
+/* .auth-text-container */
+
+/* Con pantallas móviles, 
+deberíamos recolocar el avatar dentro del sidebar */
+@media (max-width: 767px) {
+  .auth-content {
+    display: flex;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+
+  .url-profile-container {
+    display: inline-block; /* Asegura que el enlace se comporte como un bloque */
+  }
+
+  .avatar-container {
+    display: block;
+    width: 100px;
+    height: auto;
+  }
+}
