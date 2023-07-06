@@ -44,12 +44,14 @@ const Sidebar = () => {
           <img src={heartIcon} alt="notifications" className="sidebar-icon" />{" "}
           <span className="text-from-sidebar">Notificaciones</span>
         </li>
-        <Link to="/profile">
-          <li className="sidebar-item">
-            <img src={profileIcon} alt="profile" className="sidebar-icon" />{" "}
-            <span className="text-from-sidebar">Perfil</span>
-          </li>
-        </Link>
+        {user ? (
+          <Link to="/profile">
+            <li className="sidebar-item">
+              <img src={profileIcon} alt="profile" className="sidebar-icon" />{" "}
+              <span className="text-from-sidebar">Perfil</span>
+            </li>
+          </Link>
+        ) : null}
       </ul>
     </div>
   );

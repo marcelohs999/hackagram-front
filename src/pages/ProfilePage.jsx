@@ -1,19 +1,24 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import defaultAvatar from "../../avatar/avatar.jpg";
+import { AuthContext } from "../../context/AuthContext";
+import { newAvatarService } from "../services";
 
-export const ProfilePage = ({ name, avatar, bio }) => {
+export const ProfilePage = () => {
   const [upload, setUpload] = useState(null);
   const [error, setError] = useState(null);
+  const { user, token, updateUser } = useContext(AuthContext);
+  const backendURL = import.meta.env.VITE_BACKEND;
 
   useEffect(() => {
     const uploadFile = async () => {
       setError(null);
       try {
         const data = new FormData();
-        data.append("upload", upload);
+        data.append("newAvatar", upload);
 
-        //throw new Error("fuck you");
-        console.log("subimos formdata");
+        const avatarData = await newAvatarService({ data, token });
+        setUpload(avatarData.avatar);
+        updateUser({ ...user, avatar: avatarData.avatar });
       } catch (error) {
         setError(error.message);
         //mostrar error en pantalla
@@ -24,10 +29,8 @@ export const ProfilePage = ({ name, avatar, bio }) => {
     if (upload) uploadFile();
   }, [upload]);
 
-  const userAvatar = upload
-    ? URL.createObjectURL(upload)
-    : avatar
-    ? avatar
+  const userAvatar = user?.avatar
+    ? `${backendURL}/uploads/avatars/${user?.avatar}`
     : defaultAvatar;
 
   return (
@@ -35,7 +38,7 @@ export const ProfilePage = ({ name, avatar, bio }) => {
       <h1>Profile</h1>
 
       <section className="avatar">
-        <label htmlFor="upload">
+        <label htmlFor="newAvatar">
           <img src={userAvatar} alt="avatar" />
           <p>Haz click para cambiar el avatar</p>
           {error ? <p>{error}</p> : null}
@@ -44,15 +47,15 @@ export const ProfilePage = ({ name, avatar, bio }) => {
         <input
           type="file"
           accept="image/*"
-          id="upload"
+          id="newAvatar"
           onChange={(e) => setUpload(e.target.files[0])}
         />
       </section>
 
       <hr />
 
-      {name ? <h2>{name}</h2> : null}
-      {bio ? <p>{bio}</p> : null}
+      {user?.username ? <h2>{user.username}</h2> : null}
+      {user?.bio ? <p>{user.bio}</p> : null}
 
       <p className="notice">Cambiar esto por formularios estándar</p>
     </section>

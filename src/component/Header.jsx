@@ -6,13 +6,13 @@ export const Header = ({}) => {
   return (
     <header className="header">
       <div className="header-container">
-        <h1 className="h1-text-container">
-          <Link to="/"> HACKAGRAM </Link>
-        </h1>
-
         <nav className="auth-container">
           <Auth />
         </nav>
+
+        <h1 className="h1-text-container">
+          <Link to="/"> HACKAGRAM </Link>
+        </h1>
       </div>
     </header>
   );

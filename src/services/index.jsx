@@ -167,3 +167,19 @@ export const searchUserService = async ({ username }) => {
   }
   return json.data;
 };
+
+export const newAvatarService = async ({ data, token }) => {
+  const backendURL = import.meta.env.VITE_BACKEND;
+  const response = await fetch(`${backendURL}/settings`, {
+    method: "PUT",
+    body: data,
+    headers: {
+      Authorization: token,
+    },
+  });
+  const json = await response.json();
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+  return json.data;
+};
