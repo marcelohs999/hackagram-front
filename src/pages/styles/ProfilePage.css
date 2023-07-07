@@ -1,0 +1,26 @@
+#newBio {
+  resize: none;
+  width: 200px;
+  height: 100px;
+}
+
+.editBio {
+  position: relative;
+  cursor: pointer;
+}
+
+.editBio::after {
+  content: "edit";
+  position: absolute;
+  top: -20px;
+  left: 60%;
+  background-color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  display: none;
+}
+
+.editBio:hover::after {
+  display: block;
+}

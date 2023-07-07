@@ -168,7 +168,7 @@ export const searchUserService = async ({ username }) => {
   return json.data;
 };
 
-export const newAvatarService = async ({ data, token }) => {
+export const settingsService = async ({ data, token }) => {
   const backendURL = import.meta.env.VITE_BACKEND;
   const response = await fetch(`${backendURL}/settings`, {
     method: "PUT",
