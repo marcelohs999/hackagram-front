@@ -22,7 +22,9 @@ export const Auth = () => {
       </Link>
       <p className="auth-text-container">
         Conectado como {user.username}.
-        <button onClick={() => logout()}>Logout</button>
+        <button className="logout-container" onClick={() => logout()}>
+          Logout
+        </button>
       </p>
     </div>
   ) : (

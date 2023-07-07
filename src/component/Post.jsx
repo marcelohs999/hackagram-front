@@ -24,12 +24,33 @@ export const Post = ({ post, removePost }) => {
   const [error, setError] = useState("");
   const [likes, setLikes] = useState(post.likes);
   const [likedByUser, setLikedByUser] = useState(post.likedByLoggedUser);
+  const [showInputComment, setShowInputComment] = useState(false);
+  const [comments, setComments] = useState([]);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   const toggleShare = () => {
     resetCopySuccess();
     setIsShareOpen(!isShareOpen);
   };
+
+  const toggleInputComment = () => {
+    setShowInputComment(!showInputComment);
+  };
+
+  // TESTEANDO comentarios (falta getPostComments)
+  // const loadComments = async () => {
+  //   try {
+  //     const response = await getPostComments(post.id);
+  //     setComments(response.comments);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   loadComments();
+  // }, [post.id]);
+  // FIN de commentarios
 
   const deletePost = async (id) => {
     try {
@@ -65,7 +86,7 @@ export const Post = ({ post, removePost }) => {
       const data = await likeImageService(token, post.id);
 
       setLikes(data.likes);
-      setLikedByUser(data.likedByLoggedUser); // Aquí se invierte el valor de liked
+      setLikedByUser(data.likedByLoggedUser);
     } catch (error) {
       setError(error.message);
     }
@@ -95,7 +116,6 @@ export const Post = ({ post, removePost }) => {
 
       <div className="post-icons-below">
         <div class="post-icons-wrapper"></div>
-        {/* <img src={heartIcon} alt="Icono de Like"></img> */}
         {user
           ? post && (
               <LikeButton
@@ -105,12 +125,30 @@ export const Post = ({ post, removePost }) => {
               />
             )
           : null}
-        <img src={messageIcon} alt="Icono de Mensajes"></img>
+        {/* INICIO de COMENTARIOS*/}
+        {/* ¿Gestionarlo en Post.jsx o mejor en SinglePage.jsx?*/}
+        {showInputComment && (
+          <div className="comment-input-container">
+            <input type="text" placeholder="Escribe tu comentario" />
+            <Link to={`/p/${imageName}`} className="comment-submit-container">
+              Enviar
+            </Link>
+          </div>
+        )}
+
+        <img
+          src={messageIcon}
+          alt="Icono de Mensajes"
+          onClick={toggleInputComment}
+        ></img>
+
+        {/* FIN de COMENTARIOS */}
         <img
           src={sendIcon}
           alt="Icono de Compartir"
           onClick={toggleShare}
         ></img>
+
         {isShareOpen && (
           <div>
             <button className="share-button" onClick={copyPostUrl}>
