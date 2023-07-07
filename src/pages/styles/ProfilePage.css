@@ -24,3 +24,7 @@
 .editBio:hover::after {
   display: block;
 }
+
+#newAvatar {
+  display: none;
+}

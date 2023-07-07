@@ -115,7 +115,7 @@ export const Post = ({ post, removePost }) => {
       )}
 
       <div className="post-icons-below">
-        <div class="post-icons-wrapper"></div>
+        <div className="post-icons-wrapper"></div>
         {user
           ? post && (
               <LikeButton
@@ -157,7 +157,7 @@ export const Post = ({ post, removePost }) => {
           </div>
         )}
 
-        <div class="trash-icon-wrapper">
+        <div className="trash-icon-wrapper">
           {user && user.id === post.user_id ? (
             <>
               <img
