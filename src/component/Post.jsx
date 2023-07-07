@@ -10,7 +10,6 @@ import "./styles/Post.css";
 // Iconos
 import messageIcon from "../../logos/message.svg";
 import sendIcon from "../../logos/send.svg";
-import bookmarkIcon from "../../logos/bookmark.svg";
 import trashIcon from "../../logos/trash.svg";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -95,6 +94,7 @@ export const Post = ({ post, removePost }) => {
       )}
 
       <div className="post-icons-below">
+        <div class="post-icons-wrapper"></div>
         {/* <img src={heartIcon} alt="Icono de Like"></img> */}
         {user
           ? post && (
@@ -118,29 +118,29 @@ export const Post = ({ post, removePost }) => {
             </button>
           </div>
         )}
-        <img
-          src={bookmarkIcon}
-          alt="Icono de Marcadores"
-          className="post-icons-bookmark"
-        ></img>
 
-        {user && user.id === post.user_id ? (
-          <>
-            <img
-              src={trashIcon}
-              onClick={() => setShowDeleteConfirmation(true)}
-            ></img>
-            {error ? <p>{error}</p> : null}
-          </>
-        ) : null}
+        <div class="trash-icon-wrapper">
+          {user && user.id === post.user_id ? (
+            <>
+              <img
+                className="trash-icon"
+                src={trashIcon}
+                onClick={() => setShowDeleteConfirmation(true)}
+              ></img>
+              {error ? <p>{error}</p> : null}
+            </>
+          ) : null}
 
-        {showDeleteConfirmation && (
-          <div className="delete-confirmation">
-            <p>¿Estás seguro de que deseas borrar esta publicación?</p>
-            <button onClick={() => deletePost(post.id)}>Sí</button>
-            <button onClick={() => setShowDeleteConfirmation(false)}>No</button>
-          </div>
-        )}
+          {showDeleteConfirmation && (
+            <div className="delete-confirmation">
+              <p>¿Estás seguro de que deseas borrar esta publicación?</p>
+              <button onClick={() => deletePost(post.id)}>Sí</button>
+              <button onClick={() => setShowDeleteConfirmation(false)}>
+                No
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       {copySuccess && <p className="url-copy">¡URL copiada correctamente!</p>}
       {/* Arreglar conteo de likes ya que no muestra nada de inicio (pero cuenta bien) */}

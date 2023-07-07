@@ -1,4 +1,5 @@
 .post-container {
+  position: relative;
   padding: 20px;
   margin: 0 auto;
   max-width: 100%;
@@ -23,7 +24,15 @@
 
 .post-icons-below {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trash-icon-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .likes-count {
@@ -47,9 +56,16 @@
   padding: 0;
 }
 
+.trash-icon {
+  align-items: end;
+  position: right;
+}
+
 .delete-confirmation {
-  transform: translate(-50%, -50%);
+  position: absolute;
+  transform: translate(-25%, -50%);
+  right: 0;
   background-color: white;
-  padding: 20px;
+  padding: 5px;
   border: 1px solid;
 }
