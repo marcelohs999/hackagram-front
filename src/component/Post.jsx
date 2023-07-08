@@ -25,9 +25,11 @@ export const Post = ({ post, removePost }) => {
   const [error, setError] = useState("");
   const [likes, setLikes] = useState(post.likes);
   const [likedByUser, setLikedByUser] = useState(post.likedByLoggedUser);
-  const [showInputComment, setShowInputComment] = useState(false);
+  const [showInputComment, setShowInputComment] = useState(false); // Para desplegar input para comentar
   const [comments, setComments] = useState([]);
   const [inputComment, setInputComment] = useState("");
+  const [loadingComments, setLoadingComments] = useState(false);
+  const [showAllComments, setShowAllComments] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   const toggleShare = () => {
@@ -41,7 +43,14 @@ export const Post = ({ post, removePost }) => {
 
   // TESTEANDO comentarios
   const loadComments = async (e) => {
+    let newComment = "";
     e.preventDefault();
+
+    if (!inputComment) {
+      // Evitamos comentarios vacíos
+      return;
+    }
+
     try {
       const data = new FormData();
 
@@ -55,33 +64,66 @@ export const Post = ({ post, removePost }) => {
         data,
       });
 
-      const newComment = response.comment;
-      setComments((prevComments) => [...prevComments, newComment]);
+      console.log("Response:", response);
 
-      setInputComment("");
-      // setComments((prev) => prev.concat(response.comment));
+      // Añado IF de prueba
+      if (response && response.success && response.comment) {
+        newComment = response.comment;
+        setComments((prevComments) => [...prevComments, newComment]);
+        setInputComment("");
+      } else {
+        setError("Error al cargar nuevo comentario");
+      }
 
+      // const updatedPost = await getPostByNameFromUserService(imageName);
+      // setComments(updatedPost.comments);
+
+      console.log(loadingComments);
+      console.log(comments);
+      console.log(newComment);
       // e.target.elements.comment.value = "";
     } catch (error) {
       setError(error.message);
     }
   };
 
-  // PRUEBA DE RENDERIZADO TRAS COMENTARIOS
+  // Renderizado con getPostByNameFromUserService
   useEffect(() => {
-    const getPost = async () => {
+    const fetchComments = async () => {
       try {
+        setLoadingComments(true);
         const updatedPost = await getPostByNameFromUserService(imageName);
         setComments(updatedPost.comments);
+        setLoadingComments(false);
       } catch (error) {
         setError(error.message);
+        setLoadingComments(false);
       }
     };
 
-    if (comments.length > 0) {
-      getPost();
+    if (comments.length === 0 && !loadingComments) {
+      fetchComments();
     }
-  }, [comments]);
+  }, [comments, loadingComments, imageName]);
+
+  // PRUEBA DE RENDERIZADO TRAS COMENTARIOS
+  // useEffect(() => {
+  //   const getPost = async () => {
+  //     try {
+  //       setLoadingComments(true);
+  //       const updatedPost = await getPostByNameFromUserService(imageName);
+  //       setComments(updatedPost.comments);
+  //       setLoadingComments(false);
+  //     } catch (error) {
+  //       setError(error.message);
+  //       setLoadingComments(false);
+  //     }
+  //   };
+
+  //   if (comments.length > 0 && !loadingComments) {
+  //     getPost();
+  //   }
+  // }, [comments, loadingComments, imageName]);
   // FIN DE PRUEBA
 
   const deletePost = async (id) => {
@@ -224,8 +266,8 @@ export const Post = ({ post, removePost }) => {
           {post.post_text}
         </p>
       )}
-
-      {comments && (
+      {/* ORIGINAL */}
+      {/* {comments && (
         <ul className="users-comments">
           {post?.comments &&
             post.comments.map((comment) => (
@@ -235,6 +277,42 @@ export const Post = ({ post, removePost }) => {
               </li>
             ))}
         </ul>
+      )} */}
+
+      {/* PRUEBA que FALLABA cambiando mapeo por comments.map */}
+      {/* {comments && comments.length > 0 && (
+        <ul className="users-comments">
+          {comments.map((comment) => (
+            <li key={comment.id}>
+              <span className="post-user-bold">{comment.username}</span>:{" "}
+              {comment.comment || ""}
+            </li>
+          ))}
+        </ul>
+      )} */}
+
+      {/* Prueba con tres comentarios por defecto y botón para mostrar todos*/}
+      {comments.length > 0 && (
+        <div>
+          <button onClick={() => setShowAllComments(!showAllComments)}>
+            {showAllComments ? "Ocultar comentarios" : "Mostrar comentarios"}
+          </button>
+          <ul className="users-comments">
+            {showAllComments
+              ? comments.map((comment) => (
+                  <li key={comment.id}>
+                    <span className="post-user-bold">{comment.username}</span>:{" "}
+                    {comment.comment}
+                  </li>
+                ))
+              : comments.slice(0, 3).map((comment) => (
+                  <li key={comment.id}>
+                    <span className="post-user-bold">{comment.username}</span>:{" "}
+                    {comment.comment}
+                  </li>
+                ))}
+          </ul>
+        </div>
       )}
     </article>
   );
