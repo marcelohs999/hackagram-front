@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   deletePostService,
   getPostByNameFromUserService,
   likeImageService,
+  postCommentsService,
 } from "../services";
 import "./styles/Post.css";
 
@@ -26,6 +27,7 @@ export const Post = ({ post, removePost }) => {
   const [likedByUser, setLikedByUser] = useState(post.likedByLoggedUser);
   const [showInputComment, setShowInputComment] = useState(false);
   const [comments, setComments] = useState([]);
+  const [inputComment, setInputComment] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   const toggleShare = () => {
@@ -37,20 +39,50 @@ export const Post = ({ post, removePost }) => {
     setShowInputComment(!showInputComment);
   };
 
-  // TESTEANDO comentarios (falta getPostComments)
-  // const loadComments = async () => {
-  //   try {
-  //     const response = await getPostComments(post.id);
-  //     setComments(response.comments);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // };
+  // TESTEANDO comentarios
+  const loadComments = async (e) => {
+    e.preventDefault();
+    try {
+      const data = new FormData();
 
-  // useEffect(() => {
-  //   loadComments();
-  // }, [post.id]);
-  // FIN de commentarios
+      data.append("comment", inputComment);
+
+      // data.append("comment", e.target.elements.comment.value);
+
+      const response = await postCommentsService({
+        token,
+        postId: post.id,
+        data,
+      });
+
+      const newComment = response.comment;
+      setComments((prevComments) => [...prevComments, newComment]);
+
+      setInputComment("");
+      // setComments((prev) => prev.concat(response.comment));
+
+      // e.target.elements.comment.value = "";
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  // PRUEBA DE RENDERIZADO TRAS COMENTARIOS
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const updatedPost = await getPostByNameFromUserService(imageName);
+        setComments(updatedPost.comments);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    if (comments.length > 0) {
+      getPost();
+    }
+  }, [comments]);
+  // FIN DE PRUEBA
 
   const deletePost = async (id) => {
     try {
@@ -125,14 +157,19 @@ export const Post = ({ post, removePost }) => {
               />
             )
           : null}
-        {/* INICIO de COMENTARIOS*/}
-        {/* ¿Gestionarlo en Post.jsx o mejor en SinglePage.jsx?*/}
         {showInputComment && (
           <div className="comment-input-container">
-            <input type="text" placeholder="Escribe tu comentario" />
-            <Link to={`/p/${imageName}`} className="comment-submit-container">
-              Enviar
-            </Link>
+            <form onSubmit={loadComments}>
+              <input
+                type="text"
+                name="comment"
+                placeholder="Escribe tu comentario"
+                value={inputComment} // Prueba de ESTADO
+                onChange={(e) => setInputComment(e.target.value)}
+                // onChange={(e) => setComments(e.target.value)}
+              />
+              <button className="comment-submit-container">Enviar</button>
+            </form>
           </div>
         )}
 
@@ -142,7 +179,6 @@ export const Post = ({ post, removePost }) => {
           onClick={toggleInputComment}
         ></img>
 
-        {/* FIN de COMENTARIOS */}
         <img
           src={sendIcon}
           alt="Icono de Compartir"
@@ -181,21 +217,25 @@ export const Post = ({ post, removePost }) => {
         </div>
       </div>
       {copySuccess && <p className="url-copy">¡URL copiada correctamente!</p>}
-      {/* Arreglar conteo de likes ya que no muestra nada de inicio (pero cuenta bien) */}
       <p className="likes-count">Likes = {likes}</p>
-      {/* NOTA: si post_text es muy largo, rompe la posición entre img y resto */}
       {post?.post_text && (
         <p className="initial-post-text">
           <span className="post-user-bold">{post.username}</span>:{" "}
           {post.post_text}
         </p>
       )}
-      <ul>
-        {post?.comments &&
-          post.comments.map((comment) => (
-            <li key={comment.id}>{comment.comment}</li>
-          ))}
-      </ul>
+
+      {comments && (
+        <ul className="users-comments">
+          {post?.comments &&
+            post.comments.map((comment) => (
+              <li key={comment.id}>
+                <span className="post-user-bold">{comment.username}</span>:{" "}
+                {comment.comment}
+              </li>
+            ))}
+        </ul>
+      )}
     </article>
   );
 };

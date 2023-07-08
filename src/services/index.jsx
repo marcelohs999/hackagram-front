@@ -184,36 +184,18 @@ export const settingsService = async ({ data, token }) => {
   return json.data;
 };
 
-// Gestionar comentarios
-
-// export const getPostComments = async (postId) => {
-//   try {
-//     const response = await axios.get(`/api/posts/${postId}/comments`);
-//     return response.data;
-//   } catch (error) {
-//     throw new Error("Error al obtener los comentarios del post.");
-//   }
-// };
-
-// En el Backend tenemos para crear
-// const newCommentInPostByIdController = async (req, res, next) => {
-//   try {
-//     const { id } = req.params;
-//     const { userId } = req;
-//     const { comment } = req.body;
-
-//     const postId = await getPostById(id);
-//     const commentsPost = await createCommentFromPostById(
-//       comment,
-//       userId,
-//       postId.id
-//     );
-
-//     res.send({
-//       status: 'Ok',
-//       message: `El comentario ${comment} se registro correctamente en el post con la id ${postId.id}`,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+export const postCommentsService = async ({ token, postId, data }) => {
+  const backendURL = import.meta.env.VITE_BACKEND;
+  const response = await fetch(`${backendURL}/image/${postId}/comment`, {
+    method: "POST",
+    body: data,
+    headers: {
+      Authorization: token,
+    },
+  });
+  const json = await response.json();
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+  return json.data;
+};

@@ -3,7 +3,6 @@ import usePost from "../hooks/usePost";
 import { ErrorMessage } from "../component/ErrorMessage";
 import "./styles/PostPage.css";
 import { ProfilePosts } from "../component/ProfilePosts";
-// NOTA - Corregir iconos de Post.css que se come aquí
 
 export const PostPage = () => {
   const { username } = useParams();
