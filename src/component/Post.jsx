@@ -12,9 +12,11 @@ import "./styles/Post.css";
 import messageIcon from "../../logos/message.svg";
 import sendIcon from "../../logos/send.svg";
 import trashIcon from "../../logos/trash.svg";
+import heartIcon from "../../logos/heart.svg"; // Icono de prueba
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { LikeButton } from "./LikesButton";
+import defaultAvatar from "../../avatar/avatar.jpg";
 
 export const Post = ({ post, removePost }) => {
   const backendURL = import.meta.env.VITE_BACKEND;
@@ -32,6 +34,37 @@ export const Post = ({ post, removePost }) => {
   const [showAllComments, setShowAllComments] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
+  function getTimeAgo(created_at) {
+    const currentTime = new Date();
+    const postTime = new Date(created_at);
+    const timeDiff = Math.abs(currentTime - postTime);
+
+    // Calcular segundos transcurridos
+    const seconds = Math.floor(timeDiff / 1000);
+
+    if (seconds < 60) {
+      return `hace ${seconds} seg`;
+    } else {
+      // Calcular minutos transcurridos
+      const minutes = Math.floor(timeDiff / (1000 * 60));
+
+      if (minutes < 60) {
+        return `hace ${minutes} min`;
+      } else {
+        // Calcular horas transcurridas
+        const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+
+        if (hours < 24) {
+          return `hace ${hours} horas`;
+        } else {
+          // Calcular días transcurridos
+          const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+          return `hace ${days} días`;
+        }
+      }
+    }
+  }
+
   const toggleShare = () => {
     resetCopySuccess();
     setIsShareOpen(!isShareOpen);
@@ -45,7 +78,8 @@ export const Post = ({ post, removePost }) => {
     e.preventDefault();
 
     if (!inputComment) {
-      // Evitamos comentarios vacíos
+      window.alert("No puedes enviar un comentario sin texto, ¡merluzo!");
+
       return;
     }
 
@@ -165,11 +199,13 @@ export const Post = ({ post, removePost }) => {
           </div>
         )}
 
-        <img
-          src={messageIcon}
-          alt="Icono de Mensajes"
-          onClick={toggleInputComment}
-        ></img>
+        {user ? (
+          <img
+            src={messageIcon}
+            alt="Icono de Mensajes"
+            onClick={toggleInputComment}
+          ></img>
+        ) : null}
 
         <img
           src={sendIcon}
@@ -217,27 +253,60 @@ export const Post = ({ post, removePost }) => {
         </p>
       )}
 
-      {/* Muestra tres comentarios por defecto y con botón para mostrar todos*/}
       {comments.length > 0 && (
         <div>
           <button onClick={() => setShowAllComments(!showAllComments)}>
             {showAllComments ? "Ocultar comentarios" : "Mostrar comentarios"}
           </button>
-          <ul className="users-comments">
-            {showAllComments
-              ? comments.map((comment) => (
-                  <li key={comment.id}>
-                    <span className="post-user-bold">{comment.username}</span>:{" "}
-                    {comment.comment}
-                  </li>
-                ))
-              : comments.slice(0, 3).map((comment) => (
-                  <li key={comment.id}>
-                    <span className="post-user-bold">{comment.username}</span>:{" "}
-                    {comment.comment}
-                  </li>
-                ))}
-          </ul>
+          <div className="users-comments">
+            <ul className="comments-list">
+              {showAllComments
+                ? comments.map((comment) => (
+                    <li key={comment.id} className="comment">
+                      <div className="comment-header">
+                        <span className="post-user-bold">
+                          <img
+                            src={
+                              comment.avatar
+                                ? `${backendURL}/uploads/avatars/${comment.avatar}`
+                                : defaultAvatar
+                            }
+                            alt="avatar"
+                            className="comment-avatar"
+                          />{" "}
+                          {comment.username}
+                        </span>{" "}
+                        <span className="time-comment-italic">
+                          {getTimeAgo(comment.created_at)}
+                        </span>
+                      </div>
+                      <div className="comment-content">{comment.comment}</div>
+                    </li>
+                  ))
+                : comments.slice(0, 3).map((comment) => (
+                    <li key={comment.id} className="comment">
+                      <div className="comment-header">
+                        <span className="post-user-bold">
+                          <img
+                            src={
+                              comment.avatar
+                                ? `${backendURL}/uploads/avatars/${comment.avatar}`
+                                : defaultAvatar
+                            }
+                            alt="avatar"
+                            className="comment-avatar"
+                          />{" "}
+                          {comment.username}
+                        </span>{" "}
+                        <span className="time-comment-italic">
+                          {getTimeAgo(comment.created_at)}
+                        </span>
+                      </div>
+                      <div className="comment-content">{comment.comment}</div>
+                    </li>
+                  ))}
+            </ul>
+          </div>
         </div>
       )}
     </article>

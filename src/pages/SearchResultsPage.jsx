@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { searchImageService, searchUserService } from "../services";
 import { useSearchParams } from "react-router-dom";
 import { PostList } from "../component/PostList";
-import "./styles/SearchResultsPage.css";
 import { UserList } from "../component/UserList";
+
+import "./styles/SearchResultsPage.css";
 
 const SearchResultsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,7 +38,6 @@ const SearchResultsPage = () => {
     setFilterBy(filter);
     setSearchParams(""); // Restablecer los parámetros de búsqueda en la URL a una cadena vacía
   };
-  
 
   useEffect(() => {
     const fetchSearchResults = async () => {
@@ -96,12 +96,12 @@ const SearchResultsPage = () => {
         Usuarios
       </button>
       <h2>
-         Resultados de búsqueda:{" "}
-         {filterBy === "posts" && searchParams.get("post_text") && (
+        Resultados de búsqueda:{" "}
+        {filterBy === "posts" && searchParams.get("post_text") && (
           <span className="search-params">{searchParams.get("post_text")}</span>
         )}
-         {filterBy === "users" && searchParams.get("username") && (
-           <span>{searchParams.get("username")}</span>
+        {filterBy === "users" && searchParams.get("username") && (
+          <span>{searchParams.get("username")}</span>
         )}
       </h2>
       {filterBy === "posts" ? (

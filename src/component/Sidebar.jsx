@@ -40,10 +40,10 @@ const Sidebar = () => {
             </li>
           </Link>
         ) : null}
-        <li className="sidebar-item">
+        {/* <li className="sidebar-item">
           <img src={heartIcon} alt="notifications" className="sidebar-icon" />{" "}
           <span className="text-from-sidebar">Notificaciones</span>
-        </li>
+        </li> */}
         {user ? (
           <Link to="/profile">
             <li className="sidebar-item">
