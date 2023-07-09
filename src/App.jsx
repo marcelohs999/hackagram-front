@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Header } from "./component/Header";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Footer } from "./component/Footer";
@@ -13,8 +13,11 @@ import "./App.css";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { NewPostPage } from "./pages/NewPostPage";
 import { ProfilePage } from "./pages/ProfilePage";
+import { AuthContext } from "../context/AuthContext";
 
 function App() {
+  const { user } = useContext(AuthContext);
+
   return (
     <>
       <main>
@@ -22,13 +25,13 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/image" element={<NewPostPage />} />
+          {user ? <Route path="/image" element={<NewPostPage />} /> : null}
           <Route path="/user" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/user/:username" element={<PostPage />} />
           <Route path="/p/:post_image" element={<SinglePage />} />
           <Route path="/search" element={<SearchResultsPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          {user ? <Route path="/profile" element={<ProfilePage />} /> : null}
           <Route path="*" element={<NotFound />} />
         </Routes>
 
