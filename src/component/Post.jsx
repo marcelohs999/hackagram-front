@@ -28,7 +28,7 @@ export const Post = ({ post, removePost }) => {
   const [showInputComment, setShowInputComment] = useState(false); // Para desplegar input para comentar
   const [comments, setComments] = useState([]);
   const [inputComment, setInputComment] = useState("");
-  const [loadingComments, setLoadingComments] = useState(false);
+  const [loadingComments, setLoadingComments] = useState(true);
   const [showAllComments, setShowAllComments] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
@@ -41,9 +41,7 @@ export const Post = ({ post, removePost }) => {
     setShowInputComment(!showInputComment);
   };
 
-  // TESTEANDO comentarios
   const loadComments = async (e) => {
-    let newComment = "";
     e.preventDefault();
 
     if (!inputComment) {
@@ -53,78 +51,34 @@ export const Post = ({ post, removePost }) => {
 
     try {
       const data = new FormData();
-
       data.append("comment", inputComment);
 
-      // data.append("comment", e.target.elements.comment.value);
-
-      const response = await postCommentsService({
+      const updatedComments = await postCommentsService({
         token,
         postId: post.id,
         data,
       });
 
-      console.log("Response:", response);
-
-      // Añado IF de prueba
-      if (response && response.success && response.comment) {
-        newComment = response.comment;
-        setComments((prevComments) => [...prevComments, newComment]);
-        setInputComment("");
-      } else {
-        setError("Error al cargar nuevo comentario");
-      }
-
-      // const updatedPost = await getPostByNameFromUserService(imageName);
-      // setComments(updatedPost.comments);
-
-      console.log(loadingComments);
-      console.log(comments);
-      console.log(newComment);
-      // e.target.elements.comment.value = "";
+      setComments(updatedComments);
+      setInputComment("");
     } catch (error) {
-      setError(error.message);
+      setError("Error al cargar nuevo comentario");
     }
   };
 
-  // Renderizado con getPostByNameFromUserService
   useEffect(() => {
-    const fetchComments = async () => {
+    const fetchPostData = async () => {
       try {
         setLoadingComments(true);
         const updatedPost = await getPostByNameFromUserService(imageName);
         setComments(updatedPost.comments);
-        setLoadingComments(false);
       } catch (error) {
         setError(error.message);
-        setLoadingComments(false);
       }
     };
 
-    if (comments.length === 0 && !loadingComments) {
-      fetchComments();
-    }
-  }, [comments, loadingComments, imageName]);
-
-  // PRUEBA DE RENDERIZADO TRAS COMENTARIOS
-  // useEffect(() => {
-  //   const getPost = async () => {
-  //     try {
-  //       setLoadingComments(true);
-  //       const updatedPost = await getPostByNameFromUserService(imageName);
-  //       setComments(updatedPost.comments);
-  //       setLoadingComments(false);
-  //     } catch (error) {
-  //       setError(error.message);
-  //       setLoadingComments(false);
-  //     }
-  //   };
-
-  //   if (comments.length > 0 && !loadingComments) {
-  //     getPost();
-  //   }
-  // }, [comments, loadingComments, imageName]);
-  // FIN DE PRUEBA
+    fetchPostData();
+  }, [imageName]);
 
   const deletePost = async (id) => {
     try {
@@ -176,10 +130,7 @@ export const Post = ({ post, removePost }) => {
 
       {post?.post_image && (
         <div>
-          <Link
-            to={`/p/${imageName}`}
-            onClick={() => getPostByNameFromUserService(imageName)}
-          >
+          <Link to={`/p/${imageName}`}>
             <img
               src={`${backendURL}/uploads/${post.post_image}`}
               alt="Imagen del post"
@@ -208,7 +159,6 @@ export const Post = ({ post, removePost }) => {
                 placeholder="Escribe tu comentario"
                 value={inputComment} // Prueba de ESTADO
                 onChange={(e) => setInputComment(e.target.value)}
-                // onChange={(e) => setComments(e.target.value)}
               />
               <button className="comment-submit-container">Enviar</button>
             </form>
@@ -266,32 +216,8 @@ export const Post = ({ post, removePost }) => {
           {post.post_text}
         </p>
       )}
-      {/* ORIGINAL */}
-      {/* {comments && (
-        <ul className="users-comments">
-          {post?.comments &&
-            post.comments.map((comment) => (
-              <li key={comment.id}>
-                <span className="post-user-bold">{comment.username}</span>:{" "}
-                {comment.comment}
-              </li>
-            ))}
-        </ul>
-      )} */}
 
-      {/* PRUEBA que FALLABA cambiando mapeo por comments.map */}
-      {/* {comments && comments.length > 0 && (
-        <ul className="users-comments">
-          {comments.map((comment) => (
-            <li key={comment.id}>
-              <span className="post-user-bold">{comment.username}</span>:{" "}
-              {comment.comment || ""}
-            </li>
-          ))}
-        </ul>
-      )} */}
-
-      {/* Prueba con tres comentarios por defecto y botón para mostrar todos*/}
+      {/* Muestra tres comentarios por defecto y con botón para mostrar todos*/}
       {comments.length > 0 && (
         <div>
           <button onClick={() => setShowAllComments(!showAllComments)}>
