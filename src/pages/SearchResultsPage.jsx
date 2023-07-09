@@ -5,6 +5,7 @@ import { PostList } from "../component/PostList";
 import { UserList } from "../component/UserList";
 
 import "./styles/SearchResultsPage.css";
+import { SearchPostList } from "../component/SearchPostList";
 
 const SearchResultsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -105,7 +106,7 @@ const SearchResultsPage = () => {
         )}
       </h2>
       {filterBy === "posts" ? (
-        <PostList posts={results} />
+        <SearchPostList posts={results} />
       ) : (
         <UserList username={results} />
       )}
