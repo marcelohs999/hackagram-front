@@ -172,6 +172,23 @@ export const settingsService = async ({ data, token }) => {
   const backendURL = import.meta.env.VITE_BACKEND;
   const response = await fetch(`${backendURL}/settings`, {
     method: "PUT",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+  const json = await response.json();
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+  return json.data;
+};
+
+export const changesAvatarBioService = async ({ data, token }) => {
+  const backendURL = import.meta.env.VITE_BACKEND;
+  const response = await fetch(`${backendURL}/settings`, {
+    method: "PUT",
     body: data,
     headers: {
       Authorization: token,

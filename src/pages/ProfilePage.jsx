@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import defaultAvatar from "../../avatar/avatar.jpg";
 import { AuthContext } from "../../context/AuthContext";
-import { settingsService } from "../services";
+import { changesAvatarBioService } from "../services";
 import "./styles/ProfilePage.css";
+import { SettingsUser } from "../component/SettingsUser";
 
 export const ProfilePage = () => {
   const [error, setError] = useState(null);
@@ -19,7 +20,7 @@ export const ProfilePage = () => {
       const data = new FormData();
       data.append("newAvatar", e.target.files[0]);
 
-      const avatarData = await settingsService({ data, token });
+      const avatarData = await changesAvatarBioService({ data, token });
 
       updateUser({ ...user, avatar: avatarData.avatar });
     } catch (error) {
@@ -42,7 +43,7 @@ export const ProfilePage = () => {
 
       data.append("newBio", e.target.newBio.value);
 
-      await settingsService({ data, token });
+      await changesAvatarBioService({ data, token });
       updateUser({ ...user, bio: newBio });
       setEditBio(false);
     } catch (error) {
@@ -108,8 +109,7 @@ export const ProfilePage = () => {
       </section>
 
       <hr />
-
-      <p className="notice">Cambiar esto por formularios estándar</p>
+      <SettingsUser />
     </section>
   );
 };
