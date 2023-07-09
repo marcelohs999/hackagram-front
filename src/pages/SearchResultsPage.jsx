@@ -32,6 +32,13 @@ const SearchResultsPage = () => {
     setSearch(e.target.value);
   };
 
+  const handleFilterClick = (filter) => {
+    setSearch("");
+    setFilterBy(filter);
+    setSearchParams(""); // Restablecer los parámetros de búsqueda en la URL a una cadena vacía
+  };
+  
+
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
@@ -62,6 +69,7 @@ const SearchResultsPage = () => {
     };
     fetchSearchResults();
   }, [searchParams]);
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -77,17 +85,25 @@ const SearchResultsPage = () => {
       </form>
       <button
         className={filterBy === "posts" ? "btnActive" : ""}
-        onClick={() => setFilterBy("posts")}
+        onClick={() => handleFilterClick("posts")}
       >
         Posts
       </button>
       <button
         className={filterBy === "users" ? "btnActive" : ""}
-        onClick={() => setFilterBy("users")}
+        onClick={() => handleFilterClick("users")}
       >
         Usuarios
       </button>
-      <h2>Resultados de búsqueda</h2>
+      <h2>
+         Resultados de búsqueda:{" "}
+         {filterBy === "posts" && searchParams.get("post_text") && (
+          <span className="search-params">{searchParams.get("post_text")}</span>
+        )}
+         {filterBy === "users" && searchParams.get("username") && (
+           <span>{searchParams.get("username")}</span>
+        )}
+      </h2>
       {filterBy === "posts" ? (
         <PostList posts={results} />
       ) : (
