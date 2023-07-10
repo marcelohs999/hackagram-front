@@ -121,6 +121,8 @@
 .comment-content {
   flex-grow: 1;
   text-align: left;
+  max-width: 45vw;
+  word-wrap: break-word;
 }
 
 .comment-avatar {
