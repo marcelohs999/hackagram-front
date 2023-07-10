@@ -2,11 +2,10 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./styles/Sidebar.css";
 
-import instaLogo from "../../logos/instagram.svg";
+import instaLogo from "../../logos/hackagram.png";
 import homeIcon from "../../logos/home.svg";
 import searchIcon from "../../logos/search.svg";
 import createIcon from "../../logos/plus-square.svg";
-import heartIcon from "../../logos/heart.svg";
 import profileIcon from "../../logos/settings.svg";
 import { AuthContext } from "../../context/AuthContext";
 
