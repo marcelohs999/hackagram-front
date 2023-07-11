@@ -1,5 +1,8 @@
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
+// Sustitución del window.alert por un toast más chulo
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   deletePostService,
   getPostByNameFromUserService,
@@ -12,7 +15,6 @@ import "./styles/Post.css";
 import messageIcon from "../../logos/message.svg";
 import sendIcon from "../../logos/send.svg";
 import trashIcon from "../../logos/trash.svg";
-import heartIcon from "../../logos/heart.svg"; // Icono de prueba
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { LikeButton } from "./LikesButton";
@@ -39,27 +41,23 @@ export const Post = ({ post, removePost }) => {
     const postTime = new Date(created_at);
     const timeDiff = Math.abs(currentTime - postTime);
 
-    // Calcular segundos transcurridos
     const seconds = Math.floor(timeDiff / 1000);
 
     if (seconds < 60) {
       return `hace ${seconds} seg`;
     } else {
-      // Calcular minutos transcurridos
       const minutes = Math.floor(timeDiff / (1000 * 60));
 
       if (minutes < 60) {
         return `hace ${minutes} min`;
       } else {
-        // Calcular horas transcurridas
         const hours = Math.floor(timeDiff / (1000 * 60 * 60));
 
         if (hours < 24) {
-          return `hace ${hours} horas`;
+          return `hace ${hours} H`;
         } else {
-          // Calcular días transcurridos
           const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-          return `hace ${days} días`;
+          return `hace ${days} D`;
         }
       }
     }
@@ -78,7 +76,16 @@ export const Post = ({ post, removePost }) => {
     e.preventDefault();
 
     if (!inputComment) {
-      window.alert("No puedes enviar un comentario sin texto, ¡merluzo!");
+      toast.info("No puedes enviar un comentario sin texto. ¡Escribe!", {
+        position: "bottom-center",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
 
       return;
     }
@@ -309,6 +316,18 @@ export const Post = ({ post, removePost }) => {
           </div>
         </div>
       )}
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </article>
   );
 };
