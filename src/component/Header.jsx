@@ -11,7 +11,10 @@ export const Header = ({}) => {
         </nav>
 
         <h1 className="h1-text-container">
-          <Link to="/"> HACKAGRAM </Link>
+          <Link to="/" className="link-text">
+            {" "}
+            HACKAGRAM{" "}
+          </Link>
         </h1>
       </div>
     </header>

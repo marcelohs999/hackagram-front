@@ -1,5 +1,5 @@
 /* Con pantallas móviles, desaparece el h1 y recolocamos auth */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .h1-text-container {
     display: none;
   }
@@ -8,6 +8,30 @@
   }
 }
 
+@media (max-width: 1400px) {
+  .h1-text-container {
+    font-size: 1.5em;
+  }
+  .auth-container {
+    padding-top: 5rem;
+  }
+}
+
 .h1-text-container {
   text-align: center;
+}
+
+.link-text {
+  font-size: 2em;
+  font-weight: 700;
+  /* color: #f64f50; */
+  /* text-shadow: 0 0 5px #0035, 0 0 25px #0035, 0 0 50px #0035, 0 0 100px #0035; */
+  letter-spacing: 0.5em;
+  transition: 1s;
+  margin-left: 0.5em;
+  background: #cf08a7;
+  background: linear-gradient(to right, #cf08a7 0%, #e5b63e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

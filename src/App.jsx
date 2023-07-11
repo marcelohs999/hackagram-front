@@ -19,9 +19,9 @@ function App() {
   const { user } = useContext(AuthContext);
 
   return (
-    <>
+    <div id="content-app">
+      <Header />
       <main>
-        <Header />
         <Sidebar />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -34,10 +34,9 @@ function App() {
           {user ? <Route path="/profile" element={<ProfilePage />} /> : null}
           <Route path="*" element={<NotFound />} />
         </Routes>
-
-        <Footer />
       </main>
-    </>
+      <Footer />
+    </div>
   );
 }
 
