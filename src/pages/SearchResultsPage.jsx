@@ -37,7 +37,7 @@ const SearchResultsPage = () => {
   const handleFilterClick = (filter) => {
     setSearch("");
     setFilterBy(filter);
-    setSearchParams(""); // Restablecer los parámetros de búsqueda en la URL a una cadena vacía
+    setSearchParams("");
   };
 
   useEffect(() => {

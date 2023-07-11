@@ -25,7 +25,6 @@ export const ProfilePage = () => {
       updateUser({ ...user, avatar: avatarData.avatar });
     } catch (error) {
       setError(error.message);
-      //mostrar error en pantalla
     }
   };
 
@@ -61,7 +60,7 @@ export const ProfilePage = () => {
 
   return (
     <section className="profile">
-      <h1>Profile</h1>
+      <h2>Profile</h2>
 
       {user?.username ? <h2>{user.username}</h2> : null}
 
@@ -76,7 +75,6 @@ export const ProfilePage = () => {
             rows="5"
             onChange={(e) => setNewBio(e.target.value)}
           ></textarea>
-          {/* <input type="text" id="newBio" name="newBio" /> */}
 
           <button type="submit" disabled={sending}>
             {sending ? "Enviando..." : "Subir bio"}
