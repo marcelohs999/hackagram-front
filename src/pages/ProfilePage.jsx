@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { changesAvatarBioService } from "../services";
 import "./styles/ProfilePage.css";
 import { SettingsUser } from "../component/SettingsUser";
+import { Link } from "react-router-dom";
 
 export const ProfilePage = () => {
   const [error, setError] = useState(null);
@@ -60,9 +61,26 @@ export const ProfilePage = () => {
 
   return (
     <section className="profile">
-      <h2>Profile</h2>
+      <h2>Perfil</h2>
 
-      {user?.username ? <h2>{user.username}</h2> : null}
+      <section className="avatar">
+        <label htmlFor="newAvatar">
+          <img src={userAvatar} alt="avatar" />
+          <p>Haz click para cambiar el avatar</p>
+          {error ? <p>{error}</p> : null}
+        </label>
+
+        <input
+          type="file"
+          accept="image/*"
+          id="newAvatar"
+          onChange={uploadFile}
+        />
+      </section>
+
+      <Link to={`/user/${user?.username}`}>
+        <h3>{user.username}</h3>
+      </Link>
 
       {editBio ? (
         <form onSubmit={handleForm}>
@@ -84,29 +102,14 @@ export const ProfilePage = () => {
       ) : user?.bio ? (
         <p className="editBio" onClick={handleBioClick}>
           {user.bio}
+          <p>Haz click para cambiar la bio</p>
         </p>
       ) : (
         <p className="editBio" onClick={handleBioClick}>
-          Escribe aqui tu bio
+          <p>Haz click para cambiar la bio</p>
         </p>
       )}
 
-      <section className="avatar">
-        <label htmlFor="newAvatar">
-          <img src={userAvatar} alt="avatar" />
-          <p>Haz click para cambiar el avatar</p>
-          {error ? <p>{error}</p> : null}
-        </label>
-
-        <input
-          type="file"
-          accept="image/*"
-          id="newAvatar"
-          onChange={uploadFile}
-        />
-      </section>
-
-      <hr />
       <SettingsUser />
     </section>
   );

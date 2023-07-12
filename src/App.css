@@ -40,21 +40,3 @@
 .read-the-docs {
   color: #888;
 }
-
-#content-app {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-}
-
-main {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 20px;
-  padding: 20px;
-}
-
-footer {
-  grid-row-start: 3;
-  grid-row-end: 4;
-}

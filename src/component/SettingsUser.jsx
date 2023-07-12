@@ -4,6 +4,7 @@ import { settingsService } from "../services";
 // Gestionamos cambios de perfil con toast, en vez de un alert cutre
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./styles/SettingsUser.css";
 
 export const SettingsUser = () => {
   const { user, token, updateUser } = useContext(AuthContext);
@@ -104,70 +105,72 @@ export const SettingsUser = () => {
     <section className="settings">
       <form onSubmit={handleForm}>
         <fieldset>
-          <label htmlFor="newUsername">Nombre de usuario</label>
-          <input
-            value={username}
-            type="text"
-            id="newUsername"
-            name="newUsername"
-            onChange={(e) => {
-              handleUsernameChange(e);
-              handleInputChange(e, setUsername);
-            }}
-          />
-        </fieldset>
+          <div className="field">
+            <label htmlFor="newUsername">Nombre de usuario</label>
+            <input
+              value={username}
+              type="text"
+              id="newUsername"
+              name="newUsername"
+              onChange={(e) => {
+                handleUsernameChange(e);
+                handleInputChange(e, setUsername);
+              }}
+            />
+          </div>
 
-        <fieldset>
-          <label htmlFor="newEmail">E-mail</label>
-          <input
-            value={email}
-            type="email"
-            id="newEmail"
-            name="newEmail"
-            onChange={(e) => {
-              handleEmailChange(e);
-              handleInputChange(e, setEmail);
-            }}
-          />
-        </fieldset>
+          <div className="field">
+            <label htmlFor="newEmail">E-mail</label>
+            <input
+              value={email}
+              type="email"
+              id="newEmail"
+              name="newEmail"
+              onChange={(e) => {
+                handleEmailChange(e);
+                handleInputChange(e, setEmail);
+              }}
+            />
+          </div>
 
-        <fieldset>
-          <label htmlFor="oldPassword">Antigua contraseña</label>
-          <input
-            type="password"
-            id="oldPassword"
-            name="oldPassword"
-            onChange={(e) => {
-              handleOldPassChange(e);
-              handleInputChange(e, setOldPass);
-            }}
-          />
-        </fieldset>
+          <div className="field">
+            <label htmlFor="oldPassword">Antigua contraseña</label>
+            <input
+              type="password"
+              id="oldPassword"
+              name="oldPassword"
+              onChange={(e) => {
+                handleOldPassChange(e);
+                handleInputChange(e, setOldPass);
+              }}
+            />
+          </div>
 
-        <fieldset>
-          <label htmlFor="newPassword">Nueva contraseña</label>
-          <input
-            type="password"
-            id="newPassword"
-            name="newPassword"
-            onChange={(e) => {
-              handlePass1Change(e);
-              handleInputChange(e, setPass1);
-            }}
-          />
-        </fieldset>
+          <div className="field">
+            <label htmlFor="newPassword">Nueva contraseña</label>
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              onChange={(e) => {
+                handlePass1Change(e);
+                handleInputChange(e, setPass1);
+              }}
+            />
+          </div>
 
-        <fieldset>
-          <label htmlFor="repeatPassword">Repite contraseña</label>
-          <input
-            type="password"
-            id="repeatPassword"
-            name="repeatPassword"
-            onChange={(e) => {
-              handlePass2Change(e);
-              handleInputChange(e, setPass2);
-            }}
-          />
+          <div className="field">
+            <label htmlFor="repeatPassword">Repite contraseña</label>
+            <input
+              type="password"
+              id="repeatPassword"
+              name="repeatPassword"
+              onChange={(e) => {
+                handlePass2Change(e);
+                handleInputChange(e, setPass2);
+              }}
+            />
+          </div>
         </fieldset>
         {error ? <p>{error}</p> : null}
         <button type="submit" disabled={!changesMade || sending}>
