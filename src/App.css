@@ -40,3 +40,30 @@
 .read-the-docs {
   color: #888;
 }
+
+button {
+  width: 100px; 
+  height: 30px; 
+  padding: 5px; 
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  outline: none;
+  border-radius: 20px; 
+  border: none;
+  color: #fff;
+  background-color: #616161;
+}
+
+button:hover {
+  background-color: #f00;
+}
+
+button:active {
+  top: 2px;
+}
+
