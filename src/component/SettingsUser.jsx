@@ -1,6 +1,9 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { settingsService } from "../services";
+// Gestionamos cambios de perfil con toast, en vez de un alert cutre
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const SettingsUser = () => {
   const { user, token, updateUser } = useContext(AuthContext);
@@ -11,9 +14,39 @@ export const SettingsUser = () => {
   const [username, setUsername] = useState(user?.username || "");
   const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
+  const [changesMade, setChangesMade] = useState(false);
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    setChangesMade(e.target.value !== user?.username);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setChangesMade(e.target.value !== user?.email);
+  };
+
+  const handleOldPassChange = (e) => {
+    setOldPass(e.target.value);
+    setChangesMade(e.target.value !== "");
+  };
+
+  const handlePass1Change = (e) => {
+    setPass1(e.target.value);
+    setChangesMade(e.target.value !== "");
+  };
+
+  const handlePass2Change = (e) => {
+    setPass2(e.target.value);
+    setChangesMade(e.target.value !== "");
+  };
 
   const handleForm = async (e) => {
     e.preventDefault();
+
+    if (!changesMade) {
+      return;
+    }
 
     try {
       setSending(true);
@@ -36,10 +69,34 @@ export const SettingsUser = () => {
 
       await settingsService({ data, token });
       updateUser({ ...user, username });
+
+      toast.success("¡Cambios guardados correctamente!", {
+        position: "bottom-center",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+
+      if (
+        email !== (user?.email || "") ||
+        oldPass !== "" ||
+        pass1 !== "" ||
+        pass2 !== "" ||
+        username !== (user?.username || "")
+      ) {
+        setChangesMade(true);
+      } else {
+        setChangesMade(false);
+      }
     } catch (error) {
       setError(error.message);
     } finally {
       setSending(false);
+      setChangesMade(false);
     }
   };
 
@@ -53,55 +110,83 @@ export const SettingsUser = () => {
             type="text"
             id="newUsername"
             name="newUsername"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              handleUsernameChange(e);
+              handleInputChange(e, setUsername);
+            }}
           />
         </fieldset>
 
         <fieldset>
-          <label htmlFor="newEmail">Email</label>
+          <label htmlFor="newEmail">E-mail</label>
           <input
             value={email}
             type="email"
             id="newEmail"
             name="newEmail"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              handleEmailChange(e);
+              handleInputChange(e, setEmail);
+            }}
           />
         </fieldset>
 
         <fieldset>
-          <label htmlFor="oldPassword">Old Password</label>
+          <label htmlFor="oldPassword">Antigua contraseña</label>
           <input
             type="password"
             id="oldPassword"
             name="oldPassword"
-            onChange={(e) => setOldPass(e.target.value)}
+            onChange={(e) => {
+              handleOldPassChange(e);
+              handleInputChange(e, setOldPass);
+            }}
           />
         </fieldset>
 
         <fieldset>
-          <label htmlFor="newPassword">Password</label>
+          <label htmlFor="newPassword">Nueva contraseña</label>
           <input
             type="password"
             id="newPassword"
             name="newPassword"
-            onChange={(e) => setPass1(e.target.value)}
+            onChange={(e) => {
+              handlePass1Change(e);
+              handleInputChange(e, setPass1);
+            }}
           />
         </fieldset>
 
         <fieldset>
-          <label htmlFor="repeatPassword">Repeat Password</label>
+          <label htmlFor="repeatPassword">Repite contraseña</label>
           <input
             type="password"
             id="repeatPassword"
             name="repeatPassword"
-            onChange={(e) => setPass2(e.target.value)}
+            onChange={(e) => {
+              handlePass2Change(e);
+              handleInputChange(e, setPass2);
+            }}
           />
         </fieldset>
         {error ? <p>{error}</p> : null}
-        <button type="submit" disabled={sending}>
+        <button type="submit" disabled={!changesMade || sending}>
           {sending ? "Enviando..." : "Enviar"}
         </button>
       </form>
+
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </section>
   );
 };

@@ -17,16 +17,15 @@
 @media (min-width: 768px) {
   .loading-img {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    margin-left: 200px;
+    max-width: calc(100% - 200px);
     height: 70vh;
     max-height: 600px;
-    width: 100%;
   }
 
   .loading-img img {
-    max-width: 100%;
-    max-height: 100%;
     object-fit: contain;
   }
 }
