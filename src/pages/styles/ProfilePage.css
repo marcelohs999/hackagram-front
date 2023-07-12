@@ -1,16 +1,17 @@
 #newBio {
   resize: none;
-  width: 200px;
-  height: 100px;
+  width: 30vw;
+  height: 6em;
+  margin-bottom: 1em;
 }
 
-.editBio {
+.edit-bio {
   position: relative;
   cursor: pointer;
   word-wrap: break-word;
 }
 
-.editBio:hover::after {
+.edit-bio:hover::after {
   display: block;
 }
 
@@ -23,15 +24,15 @@
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 }
 
-@media screen and (max-width: 1500px) {
-  .editBio {
-    overflow-wrap: anywhere; /* Permite que las palabras se dividan en cualquier punto */
-    display: inline-block; /* Hace que el párrafo se ajuste a su contenido */
-    width: 60%; /* Establece el ancho máximo del párrafo al 100% */
-    white-space: pre-wrap; /* Conserva los saltos de línea del texto original */
+@media (max-width: 1500px) {
+  .edit-bio {
+    overflow-wrap: anywhere;
+    display: inline-block;
+    width: 60%;
+    white-space: pre-wrap;
   }
 }
 
@@ -49,13 +50,17 @@
   cursor: pointer;
 }
 
-h2 {
+.profile h2 {
   font-size: 6em;
 }
 
-h3 {
+.profile h3 {
   font-size: 3em;
-  color: black;
+  color: rgba(0, 0, 0, 0.816);
+}
+
+.profile h3:hover {
+  color: rgb(247, 181, 15);
 }
 
 .avatar p:hover {
@@ -64,8 +69,17 @@ h3 {
   cursor: pointer;
 }
 
-.editBio p:hover {
+.edit-bio-p:hover {
   font-weight: 500;
   color: rgb(247, 181, 15);
   cursor: pointer;
+}
+
+.edit-bio-p {
+  margin-bottom: 2em;
+}
+
+.profile form {
+  display: flex;
+  flex-direction: column;
 }

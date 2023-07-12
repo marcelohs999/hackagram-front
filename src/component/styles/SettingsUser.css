@@ -1,13 +1,11 @@
 .settings {
   width: 30vw;
-  margin-top: 1em;
 }
 
 .settings fieldset {
   display: flex;
   flex-direction: column;
   gap: 3em;
-  padding: 2em;
   border: none;
 }
 
@@ -24,10 +22,36 @@
 
 .field {
   display: flex;
-  gap: 10px;
+  gap: 0.8em;
   align-items: center;
 }
 
-input {
-  flex: 1;
+.settings button {
+  margin-bottom: 10em;
+}
+
+@media (max-width: 1400px) {
+  .settings fieldset {
+    width: auto;
+  }
+
+  .settings label {
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: unset;
+  }
+
+  .field {
+    flex-direction: column;
+  }
+
+  @media (max-width: 768px) {
+    .settings {
+      width: 100%;
+    }
+
+    .settings label {
+      min-width: 100%;
+    }
+  }
 }

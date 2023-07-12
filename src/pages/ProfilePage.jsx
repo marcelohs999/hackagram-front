@@ -100,15 +100,19 @@ export const ProfilePage = () => {
           {error ? <p>{error}</p> : null}
         </form>
       ) : user?.bio ? (
-        <p className="editBio" onClick={handleBioClick}>
+        <p className="edit-bio" onClick={handleBioClick}>
           {user.bio}
-          <p>Haz click para cambiar la bio</p>
         </p>
       ) : (
-        <p className="editBio" onClick={handleBioClick}>
-          <p>Haz click para cambiar la bio</p>
+        <p className="edit-bio" onClick={handleBioClick}>
+          Escribe aqui tu bio
         </p>
       )}
+      {!editBio ? (
+        <p className="edit-bio-p" onClick={handleBioClick}>
+          Haz click para cambiar la bio
+        </p>
+      ) : null}
 
       <SettingsUser />
     </section>
