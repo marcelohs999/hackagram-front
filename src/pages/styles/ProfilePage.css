@@ -22,7 +22,7 @@
 .profile {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: space-evenly;
   align-items: center;
   height: 100%;
 }

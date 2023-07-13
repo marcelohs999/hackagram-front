@@ -54,10 +54,18 @@ export const Post = ({ post, removePost }) => {
         const hours = Math.floor(timeDiff / (1000 * 60 * 60));
 
         if (hours < 24) {
-          return `hace ${hours} H`;
+          if (hours === 1) {
+            return `hace ${hours} hora`;
+          } else {
+            return `hace ${hours} horas`;
+          }
         } else {
           const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-          return `hace ${days} D`;
+          if (days === 1) {
+            return `hace ${days} día`;
+          } else {
+            return `hace ${days} días`;
+          }
         }
       }
     }
@@ -162,172 +170,213 @@ export const Post = ({ post, removePost }) => {
   };
   return (
     <article className="post-container">
-      {post?.username && (
-        <p className="post-user-top">
-          Creado por <Link to={`/user/${post.username}`}>{post.username}</Link>{" "}
-          el {new Date(post.created_at).toLocaleString()}
-        </p>
+      {!user && post?.post_image && (
+        <>
+          {post?.username && (
+            <p className="post-user-top">
+              Creado por{" "}
+              <Link to={`/user/${post.username}`}>{post.username}</Link>{" "}
+              {getTimeAgo(post.created_at)}
+            </p>
+          )}
+          <div>
+            <Link to={`/p/${imageName}`}>
+              <img
+                src={`${backendURL}/uploads/${post.post_image}`}
+                alt="Imagen del post"
+              />
+            </Link>
+          </div>
+        </>
       )}
 
-      {post?.post_image && (
-        <div>
-          <Link to={`/p/${imageName}`}>
-            <img
-              src={`${backendURL}/uploads/${post.post_image}`}
-              alt="Imagen del post"
-            />
-          </Link>
-        </div>
-      )}
+      {user && (
+        <>
+          {post?.username && (
+            <p className="post-user-top">
+              Creado por{" "}
+              <Link to={`/user/${post.username}`}>{post.username}</Link> el{" "}
+              {new Date(post.created_at).toLocaleString()}
+            </p>
+          )}
 
-      <div className="post-icons-below">
-        <div className="post-icons-wrapper"></div>
-        {user
-          ? post && (
+          {post?.post_image && (
+            <div>
+              <Link to={`/p/${imageName}`}>
+                <img
+                  src={`${backendURL}/uploads/${post.post_image}`}
+                  alt="Imagen del post"
+                />
+              </Link>
+            </div>
+          )}
+
+          <div className="post-icons-below">
+            <div className="post-icons-wrapper"></div>
+            {post && (
               <LikeButton
                 postId={post.id}
                 handleLike={handleLike}
                 likedByUser={likedByUser}
               />
-            )
-          : null}
-        {showInputComment && (
-          <div className="comment-input-container">
-            <form onSubmit={loadComments}>
-              <input
-                type="text"
-                name="comment"
-                placeholder="Escribe tu comentario"
-                value={inputComment} // Prueba de ESTADO
-                onChange={(e) => setInputComment(e.target.value)}
-              />
-              <button className="comment-submit-container">Enviar</button>
-            </form>
-          </div>
-        )}
+            )}
 
-        {user ? (
-          <img
-            src={messageIcon}
-            alt="Icono de Mensajes"
-            onClick={toggleInputComment}
-          ></img>
-        ) : null}
-
-        <img
-          src={sendIcon}
-          alt="Icono de Compartir"
-          onClick={toggleShare}
-        ></img>
-
-        {isShareOpen && (
-          <div>
-            <button className="share-button" onClick={copyPostUrl}>
-              Copiar
-            </button>
-          </div>
-        )}
-
-        <div className="trash-icon-wrapper">
-          {user && user.id === post.user_id ? (
-            <>
+            {user ? (
               <img
-                className="trash-icon"
-                src={trashIcon}
-                onClick={() => setShowDeleteConfirmation(true)}
+                src={messageIcon}
+                alt="Icono de Mensajes"
+                onClick={toggleInputComment}
               ></img>
-              {error ? <p>{error}</p> : null}
-            </>
-          ) : null}
+            ) : null}
 
-          {showDeleteConfirmation && (
-            <div className="delete-confirmation">
-              <p>¿Estás seguro de que deseas borrar esta publicación?</p>
-              <button onClick={() => deletePost(post.id)}>Sí</button>
-              <button onClick={() => setShowDeleteConfirmation(false)}>
-                No
-              </button>
+            <img
+              src={sendIcon}
+              alt="Icono de Compartir"
+              onClick={toggleShare}
+            ></img>
+
+            {isShareOpen && (
+              <div>
+                <button className="share-button" onClick={copyPostUrl}>
+                  Copiar
+                </button>
+              </div>
+            )}
+
+            <div className="trash-icon-wrapper">
+              {user && user.id === post.user_id ? (
+                <>
+                  <img
+                    className="trash-icon"
+                    src={trashIcon}
+                    onClick={() => setShowDeleteConfirmation(true)}
+                  ></img>
+                  {error ? <p>{error}</p> : null}
+                </>
+              ) : null}
+
+              {showDeleteConfirmation && (
+                <div className="delete-confirmation">
+                  <p>¿Estás seguro de que deseas borrar esta publicación?</p>
+                  <button onClick={() => deletePost(post.id)}>Sí</button>
+                  <button onClick={() => setShowDeleteConfirmation(false)}>
+                    No
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {copySuccess && (
+            <p className="url-copy">¡URL copiada correctamente!</p>
+          )}
+          {likes > 1 ? (
+            <p className="likes-count">Le gusta a {likes} personas</p>
+          ) : likes === 1 ? (
+            <p className="likes-count">Tan solo le gusta a una persona</p>
+          ) : (
+            <p className="likes-count">No le ha gustado a nadie aún</p>
+          )}
+
+          {post?.post_text && (
+            <p className="initial-post-text">
+              <span className="post-user-bold">{post.username}</span>:{" "}
+              {post.post_text}
+            </p>
+          )}
+
+          {showInputComment && (
+            <div className="comment-input-container">
+              <form onSubmit={loadComments}>
+                <input
+                  type="text"
+                  name="comment"
+                  placeholder="Escribe tu comentario"
+                  value={inputComment}
+                  onChange={(e) => setInputComment(e.target.value)}
+                />
+                <button className="comment-submit-container">Enviar</button>
+              </form>
             </div>
           )}
-        </div>
-      </div>
-      {copySuccess && <p className="url-copy">¡URL copiada correctamente!</p>}
-      <p className="likes-count">Likes = {likes}</p>
-      {post?.post_text && (
-        <p className="initial-post-text">
-          <span className="post-user-bold">{post.username}</span>:{" "}
-          {post.post_text}
-        </p>
-      )}
 
-      {comments.length > 0 && (
-        <div>
-          <button onClick={() => setShowAllComments(!showAllComments)}>
-            {showAllComments ? "Ocultar comentarios" : "Mostrar comentarios"}
-          </button>
-          <div className="users-comments">
-            <ul className="comments-list">
-              {showAllComments
-                ? comments.map((comment) => (
-                    <li key={comment.id} className="comment">
-                      <div className="comment-header">
-                        <span className="post-user-bold">
-                          <img
-                            src={
-                              comment.avatar
-                                ? `${backendURL}/uploads/avatars/${comment.avatar}`
-                                : defaultAvatar
-                            }
-                            alt="avatar"
-                            className="comment-avatar"
-                          />{" "}
-                          {comment.username}
-                        </span>{" "}
-                        <span className="time-comment-italic">
-                          {getTimeAgo(comment.created_at)}
-                        </span>
-                      </div>
-                      <div className="comment-content">{comment.comment}</div>
-                    </li>
-                  ))
-                : comments.slice(0, 3).map((comment) => (
-                    <li key={comment.id} className="comment">
-                      <div className="comment-header">
-                        <span className="post-user-bold">
-                          <img
-                            src={
-                              comment.avatar
-                                ? `${backendURL}/uploads/avatars/${comment.avatar}`
-                                : defaultAvatar
-                            }
-                            alt="avatar"
-                            className="comment-avatar"
-                          />{" "}
-                          {comment.username}
-                        </span>{" "}
-                        <span className="time-comment-italic">
-                          {getTimeAgo(comment.created_at)}
-                        </span>
-                      </div>
-                      <div className="comment-content">{comment.comment}</div>
-                    </li>
-                  ))}
-            </ul>
-          </div>
-        </div>
+          {comments.length > 0 && (
+            <div>
+              <button onClick={() => setShowAllComments(!showAllComments)}>
+                {showAllComments
+                  ? "Ocultar comentarios"
+                  : "Mostrar más comentarios"}
+              </button>
+              <div className="users-comments">
+                <ul className="comments-list">
+                  {showAllComments
+                    ? comments.map((comment) => (
+                        <li key={comment.id} className="comment">
+                          <div className="comment-header">
+                            <span className="post-user-bold">
+                              <img
+                                src={
+                                  comment.avatar
+                                    ? `${backendURL}/uploads/avatars/${comment.avatar}`
+                                    : defaultAvatar
+                                }
+                                alt="avatar"
+                                className="comment-avatar"
+                              />{" "}
+                              {comment.username}
+                            </span>{" "}
+                            <span className="time-comment-italic">
+                              {getTimeAgo(comment.created_at)}
+                            </span>
+                          </div>
+                          <div className="comment-content">
+                            {comment.comment}
+                          </div>
+                        </li>
+                      ))
+                    : comments.slice(0, 3).map((comment) => (
+                        <li key={comment.id} className="comment">
+                          <div className="comment-header">
+                            <span className="post-user-bold">
+                              <img
+                                src={
+                                  comment.avatar
+                                    ? `${backendURL}/uploads/avatars/${comment.avatar}`
+                                    : defaultAvatar
+                                }
+                                alt="avatar"
+                                className="comment-avatar"
+                              />{" "}
+                              {comment.username}
+                            </span>{" "}
+                            <span className="time-comment-italic">
+                              {getTimeAgo(comment.created_at)}
+                            </span>
+                          </div>
+                          <div className="comment-content">
+                            {comment.comment}
+                          </div>
+                        </li>
+                      ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
+          <ToastContainer
+            position="bottom-center"
+            autoClose={2500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
+        </>
       )}
-      <ToastContainer
-        position="bottom-center"
-        autoClose={2500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
     </article>
   );
 };

@@ -37,6 +37,8 @@
 
 .likes-count {
   text-align: left;
+  font-style: italic;
+  font-size: small;
 }
 
 .initial-post-text {
@@ -67,7 +69,7 @@
 }
 
 .comment-input-container {
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -84,6 +86,7 @@
 .comment-submit-container {
   padding: 0;
   width: 25%;
+  margin-bottom: 2rem;
 }
 
 .post-user-bold {

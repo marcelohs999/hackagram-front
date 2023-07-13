@@ -1,18 +1,6 @@
-
+.btnActive {
+  color: blue;
+}
 .search-params {
   font-weight: normal;
-}
-.search-form button{
-  color: rgb(9, 9, 9);
-}
-.search-form button.btnActive,
-.search-form button.filter {
-  color: rgb(255, 255, 255);
-}
-
-@media (min-width: 768px) {
-  .search-form {
-    margin-left: 200px;
-    max-width: calc(100% - 200px);
-  }
 }

@@ -6,16 +6,15 @@ export const Header = ({}) => {
   return (
     <header className="header">
       <div className="header-container">
-        <nav className="auth-container">
-          <Auth />
-        </nav>
-
         <h1 className="h1-text-container">
           <Link to="/" className="link-text">
             {" "}
             HACKAGRAM{" "}
           </Link>
         </h1>
+        <nav className="auth-container">
+          <Auth />
+        </nav>
       </div>
     </header>
   );

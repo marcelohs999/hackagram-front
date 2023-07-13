@@ -72,7 +72,7 @@ const SearchResultsPage = () => {
   }, [searchParams]);
 
   return (
-    <div className="search-form">
+    <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="search">¿Qué quieres buscar?</label>
         <input
@@ -82,7 +82,7 @@ const SearchResultsPage = () => {
           name="search"
           onChange={handleChange}
         />
-        <button className="filter">Filtrar</button>
+        <button>Filtrar</button>
       </form>
       <button
         className={filterBy === "posts" ? "btnActive" : ""}

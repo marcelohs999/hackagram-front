@@ -28,13 +28,15 @@ export const Auth = () => {
       </p>
     </div>
   ) : (
-    <ul>
-      <li>
-        <Link to="/user"> Registro </Link>{" "}
-      </li>
-      <li>
-        <Link to="/login"> Login </Link>{" "}
-      </li>
-    </ul>
+    <div className="user-login-content">
+      <ul>
+        <li>
+          <Link to="/user"> Registro </Link>{" "}
+        </li>
+        <li>
+          <Link to="/login"> Login </Link>{" "}
+        </li>
+      </ul>
+    </div>
   );
 };

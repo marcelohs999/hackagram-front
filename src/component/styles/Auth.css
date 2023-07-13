@@ -1,3 +1,15 @@
+.user-login-content {
+  background-color: aliceblue;
+  /* Tan solo para ver cuánto ocupa */
+  padding: 0.5rem;
+  display: inline-flex;
+}
+
+.user-login-content ul {
+  margin: 0;
+  padding: 0;
+}
+
 /* En pantallas grandes fijamos Auth abajo, dentro de Sidebar */
 @media (min-width: 768px) {
   .auth-content {

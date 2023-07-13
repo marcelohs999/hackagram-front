@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { ErrorMessage } from "../component/ErrorMessage";
 import { PostList } from "../component/PostList";
+import { AuthContext } from "../../context/AuthContext";
 import usePosts from "../hooks/usePosts";
 import loadingGif from "../../logos/loading.gif";
 import "./styles/HomePage.css";
 
 export const HomePage = () => {
+  const { user } = useContext(AuthContext);
   const { posts, loading, error, removePost } = usePosts();
 
   if (loading)
@@ -13,8 +16,17 @@ export const HomePage = () => {
 
   return (
     <section>
-      <h1>Últimas publicaciones</h1>
-      <PostList posts={posts} removePost={removePost} />
+      {user ? (
+        <h1>Últimas publicaciones</h1>
+      ) : (
+        <h2>Sin login verás pocas publicaciones...</h2>
+      )}
+      <PostList
+        posts={user ? posts : posts.slice(0, 3)}
+        removePost={removePost}
+        // className={user ? "" : "post-list-without-login"}
+        // style={!user ? { width: "300px", height: "300px" } : {}}
+      />
     </section>
   );
 };
