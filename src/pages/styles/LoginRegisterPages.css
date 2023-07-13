@@ -7,3 +7,34 @@
     max-width: calc(100% - 200px);
   }
 }
+
+.settings {
+  width: 30vw;
+}
+
+.login-register-page-container fieldset {
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+.login-register-page-container label {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  min-width: 150px;
+}
+
+.login-register-page-container input {
+  width: 100%;
+}
+
+.login-register-page-container {
+  display: flex;
+  gap: 0.8em;
+  align-items: center;
+}
+
+.login-register-page-container button {
+  margin-bottom: 10em;
+}
