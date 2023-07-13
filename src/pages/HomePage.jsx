@@ -19,13 +19,11 @@ export const HomePage = () => {
       {user ? (
         <h1>Últimas publicaciones</h1>
       ) : (
-        <h2>Sin login verás pocas publicaciones...</h2>
+        <h2 className="h2-homepage-text">Sin login, poco (o nada) verás...</h2>
       )}
       <PostList
         posts={user ? posts : posts.slice(0, 3)}
         removePost={removePost}
-        // className={user ? "" : "post-list-without-login"}
-        // style={!user ? { width: "300px", height: "300px" } : {}}
       />
     </section>
   );

@@ -4,3 +4,15 @@
 .search-params {
   font-weight: normal;
 }
+
+.search-results-page-container {
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .search-results-page-container {
+    margin-top: 5rem;
+    margin-left: 200px;
+    max-width: calc(100% - 200px);
+  }
+}
