@@ -1,0 +1,9 @@
+@media (min-width: 768px) {
+  .login-register-page-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left: 200px;
+    max-width: calc(100% - 200px);
+  }
+}

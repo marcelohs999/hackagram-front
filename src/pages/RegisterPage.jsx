@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUserService } from "../services/index";
+import "./styles/LoginRegisterPages.css";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -35,56 +36,58 @@ export const RegisterPage = () => {
 
   return (
     <section>
-      <h1>Register</h1>
-      <form onSubmit={handleForm}>
-        <fieldset>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {emailError && <p>{emailError}</p>}
-        </fieldset>
+      <h1>Formulario de registro</h1>
+      <div className="login-register-page-container">
+        <form onSubmit={handleForm}>
+          <fieldset>
+            <label htmlFor="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {emailError && <p>{emailError}</p>}
+          </fieldset>
 
-        <fieldset>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            required
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </fieldset>
+          <fieldset>
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </fieldset>
 
-        <fieldset>
-          <label htmlFor="pass1">Password</label>
-          <input
-            type="password"
-            id="pass1"
-            name="pass1"
-            required
-            onChange={(e) => setPass1(e.target.value)}
-          />
-        </fieldset>
+          <fieldset>
+            <label htmlFor="pass1">Contraseña</label>
+            <input
+              type="password"
+              id="pass1"
+              name="pass1"
+              required
+              onChange={(e) => setPass1(e.target.value)}
+            />
+          </fieldset>
 
-        <fieldset>
-          <label htmlFor="pass2">Repeat Password</label>
-          <input
-            type="password"
-            id="pass2"
-            name="pass2"
-            required
-            onChange={(e) => setPass2(e.target.value)}
-          />
-        </fieldset>
-        <button>Register</button>
+          <fieldset>
+            <label htmlFor="pass2">Repite la contraseña</label>
+            <input
+              type="password"
+              id="pass2"
+              name="pass2"
+              required
+              onChange={(e) => setPass2(e.target.value)}
+            />
+          </fieldset>
+          <button>Registro</button>
 
-        {error ? <p>{error}</p> : null}
-      </form>
+          {error ? <p>{error}</p> : null}
+        </form>
+      </div>
     </section>
   );
 };
