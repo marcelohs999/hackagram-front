@@ -1,6 +1,6 @@
 #newBio {
   resize: none;
-  width: 30vw;
+  width: 100%;
   height: 6em;
   margin-bottom: 1em;
 }
@@ -27,19 +27,33 @@
   height: 100%;
 }
 
-@media (max-width: 1500px) {
+
   .edit-bio {
     overflow-wrap: anywhere;
     display: inline-block;
     width: 60%;
-    white-space: pre-wrap;
   }
-}
+
 
 @media (min-width: 768px) {
   .profile {
     margin-left: 200px;
     max-width: calc(100% - 200px);
+  }
+}
+
+@media (max-width: 1400px) {
+  #newBio {
+    
+    width: 40vw;
+    
+  }
+  @media (max-width: 450px) {
+    #newBio {
+      
+      width: 60vw;
+      
+    }
   }
 }
 

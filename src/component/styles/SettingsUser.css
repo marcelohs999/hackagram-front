@@ -1,5 +1,5 @@
 .settings {
-  width: 30vw;
+  width: 60%;
 }
 
 .settings fieldset {
@@ -27,17 +27,15 @@
 }
 
 .settings button {
-  margin-bottom: 10em;
+  margin-bottom: 5em;
 }
 
 @media (max-width: 1400px) {
-  .settings fieldset {
-    width: auto;
-  }
+  
 
   .settings label {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     min-width: unset;
   }
 
@@ -45,13 +43,9 @@
     flex-direction: column;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 450px) {
     .settings {
-      width: 100%;
-    }
-
-    .settings label {
-      min-width: 100%;
+      width: 80%;
     }
   }
 }

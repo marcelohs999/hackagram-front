@@ -89,7 +89,7 @@ export const ProfilePage = () => {
             value={newBio}
             id="newBio"
             name="newBio"
-            cols="15"
+            cols="75"
             rows="5"
             onChange={(e) => setNewBio(e.target.value)}
           ></textarea>
