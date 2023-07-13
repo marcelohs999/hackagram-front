@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import usePosts from "../hooks/usePosts";
 import { sendPostService } from "../services";
 import { useNavigate } from "react-router-dom";
+import "./styles/NewPostPage.css";
 
 export const NewPostPage = () => {
   const { addPost } = usePosts();
@@ -36,11 +37,11 @@ export const NewPostPage = () => {
   };
 
   return (
-    <form onSubmit={handleForm}>
-      <h1>Añade un nuevo Post</h1>
+    <form onSubmit={handleForm} className="new-form">
+      <h2>Añade una foto</h2>
 
       <fieldset>
-        <label htmlFor="postImage">Sube tu post</label>
+        <label htmlFor="postImage"></label>
         <input
           type="file"
           id="postImage"
@@ -61,8 +62,13 @@ export const NewPostPage = () => {
         ) : null}
       </fieldset>
       <fieldset>
-        <label htmlFor="postText">Escribe en el pie de la foto</label>
-        <input type="text" id="postText" name="postText" />
+        <label htmlFor="postText"></label>
+        <textarea
+          type="text"
+          id="postText"
+          name="postText"
+          placeholder="Escribe en el pie de la foto"
+        />
       </fieldset>
       <button type="submit" disabled={sending}>
         {sending ? "Enviando..." : "Subir Post"}
