@@ -31,10 +31,10 @@ export const Auth = () => {
     <div className="user-login-content">
       <ul>
         <li>
-          <Link to="/user"> Registro </Link>{" "}
+          ¿Aún no tienes cuenta? <Link to="/user"> Regístrate </Link>{" "}
         </li>
         <li>
-          <Link to="/login"> Login </Link>{" "}
+          ¿O quieres acceder a la web?<Link to="/login"> Login </Link>{" "}
         </li>
       </ul>
     </div>

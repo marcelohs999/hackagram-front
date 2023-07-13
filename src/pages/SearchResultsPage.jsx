@@ -72,7 +72,7 @@ const SearchResultsPage = () => {
   }, [searchParams]);
 
   return (
-    <div>
+    <div className="search-results-page-container">
       <form onSubmit={handleSubmit}>
         <label htmlFor="search">¿Qué quieres buscar?</label>
         <input

@@ -1,6 +1,6 @@
 .user-login-content {
   background-color: aliceblue;
-  /* Tan solo para ver cuánto ocupa */
+  border-style: dotted;
   padding: 0.5rem;
   display: inline-flex;
 }
@@ -10,8 +10,17 @@
   padding: 0;
 }
 
+.user-login-content li {
+  margin-bottom: 0.5rem;
+}
+
 /* En pantallas grandes fijamos Auth abajo, dentro de Sidebar */
 @media (min-width: 768px) {
+  .user-login-content {
+    margin-left: 200px;
+    max-width: calc(100% - 200px);
+  }
+
   .auth-content {
     display: flex;
     flex-direction: column;
@@ -50,7 +59,13 @@
   object-fit: contain;
 }
 
+/* Para pantallas pequeñas */
 @media (max-width: 767px) {
+  .user-login-content {
+    top: 0;
+    margin-bottom: 10rem;
+  }
+
   .auth-content {
     display: flex;
     flex-direction: row;
