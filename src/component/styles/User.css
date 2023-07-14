@@ -1,0 +1,11 @@
+.user-search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-search-container img {
+  height: 25em;
+  width: 25em;
+  border-radius: 50%;
+}

@@ -1,3 +1,26 @@
+#content-app {
+  height: 95vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 18rem 1fr 2rem;
+  grid-template-areas:
+    "uno"
+    "dos"
+    "tres";
+}
+
+header {
+  grid-area: uno;
+}
+
+main {
+  grid-area: dos;
+}
+
+footer {
+  grid-area: tres;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

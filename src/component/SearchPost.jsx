@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import "./styles/SearchPost.css";
 
 export const SearchPost = ({ post }) => {
   const backendURL = import.meta.env.VITE_BACKEND;
   const imageName = post?.post_image?.split(".")[0];
 
   return (
-    <article className="post-container">
+    <article className="post-search-container">
       {post?.post_image && (
         <div>
           <Link to={`/p/${imageName}`}>

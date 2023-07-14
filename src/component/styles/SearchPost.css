@@ -1,11 +1,11 @@
-.post-container {
+.post-search-container {
   position: relative;
   padding: 20px;
   margin: 0 auto;
   max-width: 100%;
 }
 
-.post-container img {
+.post-search-container img {
   max-width: 100%;
   height: auto;
   object-fit: cover;
