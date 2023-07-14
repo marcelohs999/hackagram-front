@@ -15,37 +15,40 @@ export const SettingsUser = () => {
   const [username, setUsername] = useState(user?.username || "");
   const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
-  const [changesMade, setChangesMade] = useState(false);
+  // Si todos los campos vuelven al estado original, bloqueamos "Enviar"
+  const [usernameChanged, setUsernameChanged] = useState(false);
+  const [emailChanged, setEmailChanged] = useState(false);
+  const [passwordChanged, setPasswordChanged] = useState(false);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    setChangesMade(e.target.value !== user?.username);
+    setUsernameChanged(e.target.value !== user?.username);
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    setChangesMade(e.target.value !== user?.email);
+    setEmailChanged(e.target.value !== user?.email);
   };
 
   const handleOldPassChange = (e) => {
     setOldPass(e.target.value);
-    setChangesMade(e.target.value !== "");
+    setPasswordChanged(e.target.value !== "");
   };
 
   const handlePass1Change = (e) => {
     setPass1(e.target.value);
-    setChangesMade(e.target.value !== "");
+    setPasswordChanged(e.target.value !== "");
   };
 
   const handlePass2Change = (e) => {
     setPass2(e.target.value);
-    setChangesMade(e.target.value !== "");
+    setPasswordChanged(e.target.value !== "");
   };
 
   const handleForm = async (e) => {
     e.preventDefault();
 
-    if (!changesMade) {
+    if (!usernameChanged && !emailChanged && !passwordChanged) {
       return;
     }
 
@@ -54,15 +57,15 @@ export const SettingsUser = () => {
 
       const data = {};
 
-      if (username) {
+      if (usernameChanged) {
         data.newUsername = username;
       }
 
-      if (email) {
+      if (emailChanged) {
         data.newEmail = email;
       }
 
-      if (oldPass) {
+      if (passwordChanged) {
         data.oldPassword = oldPass;
         data.newPassword = pass1;
         data.repeatPassword = pass2;
@@ -82,22 +85,25 @@ export const SettingsUser = () => {
         theme: "colored",
       });
 
-      if (
-        email !== (user?.email || "") ||
-        oldPass !== "" ||
-        pass1 !== "" ||
-        pass2 !== "" ||
-        username !== (user?.username || "")
-      ) {
-        setChangesMade(true);
-      } else {
-        setChangesMade(false);
-      }
+      // if (
+      //   email !== (user?.email || "") ||
+      //   oldPass !== "" ||
+      //   pass1 !== "" ||
+      //   pass2 !== "" ||
+      //   username !== (user?.username || "")
+      // ) {
+      //   setChangesMade(true);
+      // } else {
+      //   setChangesMade(false);
+      // }
+
+      setUsernameChanged(false);
+      setEmailChanged(false);
+      setPasswordChanged(false);
     } catch (error) {
       setError(error.message);
     } finally {
       setSending(false);
-      setChangesMade(false);
     }
   };
 
@@ -173,7 +179,12 @@ export const SettingsUser = () => {
           </div>
         </fieldset>
         {error ? <p>{error}</p> : null}
-        <button type="submit" disabled={!changesMade || sending}>
+        <button
+          type="submit"
+          disabled={
+            (!usernameChanged && !emailChanged && !passwordChanged) || sending
+          }
+        >
           {sending ? "Enviando..." : "Enviar"}
         </button>
       </form>
