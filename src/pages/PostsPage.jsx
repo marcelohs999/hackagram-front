@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import usePost from "../hooks/usePost";
 import { ErrorMessage } from "../component/ErrorMessage";
-import "./styles/PostPage.css";
+import "./styles/PostsPage.css";
 import { ProfilePosts } from "../component/ProfilePosts";
 
 export const PostPage = () => {
@@ -14,12 +14,18 @@ export const PostPage = () => {
 
   return (
     <section>
-      <h1>Publicaciones de {username}</h1>
-      <div className="image-container">
-        {posts.map((post) => (
-          <ProfilePosts key={post.id} post={post} />
-        ))}
-      </div>
+      {posts.length === 0 ? (
+        <h1>{username} aún no ha publicado nada</h1>
+      ) : (
+        <div>
+          <h1>Publicaciones de {username}</h1>
+          <div className="image-container">
+            {posts.map((post) => (
+              <ProfilePosts key={post.id} post={post} />
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 };

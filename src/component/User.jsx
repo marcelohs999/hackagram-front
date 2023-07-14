@@ -4,7 +4,6 @@ import defaultAvatar from "../../avatar/avatar.jpg";
 
 export const User = ({ username }) => {
   const backendURL = import.meta.env.VITE_BACKEND;
-  console.log(username?.avatar);
 
   const userAvatar = username?.avatar
     ? `${backendURL}/uploads/avatars/${username.avatar}`
