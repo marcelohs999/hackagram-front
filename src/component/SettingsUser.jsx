@@ -85,18 +85,6 @@ export const SettingsUser = () => {
         theme: "colored",
       });
 
-      // if (
-      //   email !== (user?.email || "") ||
-      //   oldPass !== "" ||
-      //   pass1 !== "" ||
-      //   pass2 !== "" ||
-      //   username !== (user?.username || "")
-      // ) {
-      //   setChangesMade(true);
-      // } else {
-      //   setChangesMade(false);
-      // }
-
       setUsernameChanged(false);
       setEmailChanged(false);
       setPasswordChanged(false);
